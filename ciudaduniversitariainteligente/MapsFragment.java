@@ -172,6 +172,9 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
         if(misPolilineas.size()!= 0){
             cambiarPolilinea(pisoActual);
         }
+        if(misMarcadores.size() != 0){
+            cambiarNodos(pisoActual);
+        }
     }
 
     //Obtengo mi latitud y longitud en un objeto LatLng
@@ -264,6 +267,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
         miMapa.addMarker(marcadoresPiso.elementAt(2*piso+1));
     }
 
+    //Funcion para actualizar los nodos según el piso que se quiera ver
     public void cambiarNodos(int piso){
         miMapa.clear();
         miMapa.addMarker(miPosicion);
