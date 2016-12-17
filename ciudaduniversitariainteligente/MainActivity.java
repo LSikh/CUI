@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
         //Cambio el fragment por defecto por mi mapFragment
-        fm.beginTransaction().replace(R.id.fragment_container, mapsFragment, "Map_Fragment").commit();
+        fm.beginTransaction().replace(R.id.fragment_container, mapsFragment).commit();
 
     }
 
@@ -99,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             }
         }
+        /*Si estoy mostrando una polilinea, la cambio segun la opcion de piso seleccionada*/
         if(mapsFragment.modoPolilinea()) {
             if (item.toString().contains("Baja")) {
                 mapsFragment.cambiarPolilinea(0);
@@ -107,6 +108,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 mapsFragment.cambiarPolilinea(Integer.parseInt(item.toString().substring(item.toString().indexOf(' ') + 1)));
             }
         }
+        /*Esto es si estoy mostrando nodos*/
         else{
             if (item.toString().contains("Baja")) {
                 mapsFragment.cambiarNodos(0);
@@ -130,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 qrBoton.hide();
                 menu.clear();
                 Busqueda busqueda = new Busqueda();
-                fm.beginTransaction().replace(R.id.fragment_container, busqueda, "Busqueda_Fragment").commit();
+                fm.beginTransaction().replace(R.id.fragment_container, busqueda).commit();
             }
 
         } else if (id == R.id.mapa_completo) {
@@ -177,6 +179,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             for(int i=1;i<=mapsFragment.getCantPisos();i++){
                 menu.add("Piso "+i);
             }
+            menu.getItem(mapsFragment.getPisoActual()).setTitle("*" + menu.getItem(mapsFragment.getPisoActual()).getTitle());
             getMenuInflater().inflate(R.menu.main, menu);
         } else {
             oArmaCamino.setPuntoMasCercano(mapsFragment.getPosicion(),mapsFragment.getPisoActual());
@@ -336,7 +339,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mapsFragment.setPisoActual(Integer.parseInt(scanContent.toString().substring(scanContent.toString().length()-1)));
             //Log.d("Prueba",mapsFragment.getLat() + "   " + mapsFragment.getLon() + "   " + mapsFragment.getPisoActual());
             mapsFragment.actualizaPosicion();
-            //Desplegamos en pantalla el nombre del formato del código de barra scaneado
+
+            //Actualizo el * del menu de pisos cuando cambio el piso por QR
+            for(int i=0;i<menu.size();i++){
+                if(menu.getItem(i).getTitle().charAt(0) == '*'){
+                    menu.getItem(i).setTitle(menu.getItem(i).getTitle().toString().substring(1));
+                    menu.getItem(mapsFragment.getPisoActual()).setTitle("*" +  menu.getItem(mapsFragment.getPisoActual()).getTitle());
+                    break;
+                }
+            }
         } else {
             //Quiere decir que NO se obtuvo resultado
             Toast toast = Toast.makeText(getApplicationContext(),
