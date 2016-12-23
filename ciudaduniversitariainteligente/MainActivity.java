@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    @Override
+  @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -83,7 +83,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 super.onBackPressed();
             }
             else{
-                fm.popBackStack();
+                if(fm.findFragmentById(R.id.fragment_container) instanceof MapsFragment){
+                    finish();
+                }
+                else {
+                    fm.popBackStack();
+                }
             }
         }
     }
