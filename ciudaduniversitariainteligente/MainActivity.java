@@ -79,7 +79,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if(fm.getBackStackEntryCount() == 0){
+                super.onBackPressed();
+            }
+            else{
+                fm.popBackStack();
+            }
         }
     }
 
@@ -132,13 +137,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 qrBoton.hide();
                 menu.clear();
                 Busqueda busqueda = new Busqueda();
-                fm.beginTransaction().replace(R.id.fragment_container, busqueda).commit();
+                fm.popBackStack();
+                fm.beginTransaction().replace(R.id.fragment_container, busqueda).addToBackStack(null).commit();
             }
 
         } else if (id == R.id.mapa_completo) {
             mapsFragment.limpiarMapa();
             menu.clear();
-            Log.d("Prueba", String.valueOf(fm.findFragmentById(R.id.fragment_container) instanceof MapsFragment));
             if (!(fm.findFragmentById(R.id.fragment_container) instanceof MapsFragment)) {
                 qrBoton.show();
                 fm.beginTransaction().replace(R.id.fragment_container, mapsFragment).commit();
@@ -148,7 +153,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             if (!(fm.findFragmentById(R.id.fragment_container) instanceof ultimasBusquedas)) {
                 qrBoton.hide();
                 menu.clear();
-                fm.beginTransaction().replace(R.id.fragment_container, ultimasBusquedas).commit();
+                fm.popBackStack();
+                fm.beginTransaction().replace(R.id.fragment_container, ultimasBusquedas).addToBackStack(null).commit();
             }
 
         }/* else if (id == R.id.nav_manage) {
@@ -194,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             String texto = "Su objetivo está en " + oArmaCamino.getPisoObjetivo();
             Toast.makeText(getApplicationContext(),texto,Toast.LENGTH_LONG).show();
         }
-        fm.beginTransaction().replace(R.id.fragment_container, mapsFragment).commit();
+        fm.beginTransaction().replace(R.id.fragment_container, mapsFragment).addToBackStack(null).commit();
         qrBoton.show();
     }
 
@@ -337,7 +343,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mapsFragment.setLat(Double.parseDouble(scanContent.toString().substring(0, (scanContent.toString().indexOf(',')))));
             mapsFragment.setLon(Double.parseDouble(scanContent.toString().substring((scanContent.toString().indexOf(',')) + 1, scanContent.length()-2)));
             mapsFragment.setPisoActual(Integer.parseInt(scanContent.toString().substring(scanContent.toString().length()-1)));
-            //Log.d("Prueba",mapsFragment.getLat() + "   " + mapsFragment.getLon() + "   " + mapsFragment.getPisoActual());
             mapsFragment.actualizaPosicion();
 
             //Actualizo el * del menu de pisos cuando cambio el piso por QR
