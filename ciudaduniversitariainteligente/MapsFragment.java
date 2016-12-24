@@ -1,5 +1,6 @@
 package com.holamundo.ciudaduniversitariainteligente;
 
+import android.annotation.TargetApi;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -9,6 +10,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -160,20 +162,28 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
         marcadoresPiso.clear();
         miMapa.clear();
         miMapa.addMarker(miPosicion);
+        setPisoActual(0);
     }
 
     //Actualizo mi posición si me moví. Quito mi marcador y lo pongo en donde corresponde
+    @TargetApi(Build.VERSION_CODES.M)
     void actualizaPosicion() {
         LatLng position = new LatLng(this.lat, this.lon);
         miMapa.moveCamera(CameraUpdateFactory.newLatLng(position));
         miPosicion.position(position);
         miPosicionMarcador.remove();
         miPosicionMarcador = miMapa.addMarker(miPosicion);
-        if(misPolilineas.size()!= 0){
+        if(!misPolilineas.isEmpty() && pisoActual+1<=misPolilineas.size()){
             cambiarPolilinea(pisoActual);
         }
-        if(misMarcadores.size() != 0){
+        else if(pisoActual+1 > misPolilineas.size() && !misPolilineas.isEmpty()){
+            Toast.makeText(getActivity().getApplicationContext(),"Su objetivo está en un piso inferior",Toast.LENGTH_LONG).show();
+        }
+        if(!misMarcadores.isEmpty() && pisoActual+1<=misMarcadores.size()){
             cambiarNodos(pisoActual);
+        }
+        else if(pisoActual+1 > misMarcadores.size() && !misMarcadores.isEmpty()){
+            Toast.makeText(getActivity().getApplicationContext(),"Su objetivo está en un piso inferior",Toast.LENGTH_LONG).show();
         }
     }
 
