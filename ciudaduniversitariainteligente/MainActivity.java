@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-  @Override
+    @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
                 else {
                     fm.popBackStack();
+                    mapsFragment.limpiarMapa();
                 }
             }
         }
@@ -183,6 +184,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Luego reemplazo el fragment de Busqueda por el de mapa
     */
     public void mostrarBusqueda(String Edificio, String Nombre) {
+        mapsFragment.setPisoActual(0);
         if (Edificio.equals("*")) {
             mapsFragment.mostrarNodos(oArmaCamino.nodosMapa(Nombre));
             menu.clear();
@@ -351,11 +353,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mapsFragment.actualizaPosicion();
 
             //Actualizo el * del menu de pisos cuando cambio el piso por QR
-            for(int i=0;i<menu.size();i++){
-                if(menu.getItem(i).getTitle().charAt(0) == '*'){
-                    menu.getItem(i).setTitle(menu.getItem(i).getTitle().toString().substring(1));
-                    menu.getItem(mapsFragment.getPisoActual()).setTitle("*" +  menu.getItem(mapsFragment.getPisoActual()).getTitle());
-                    break;
+            if(mapsFragment.getPisoActual()+1 <= mapsFragment.getCantPisos()) {
+                for (int i = 0; i < menu.size(); i++) {
+                    if (menu.getItem(i).getTitle().charAt(0) == '*') {
+                        menu.getItem(i).setTitle(menu.getItem(i).getTitle().toString().substring(1));
+                        menu.getItem(mapsFragment.getPisoActual()).setTitle("*" + menu.getItem(mapsFragment.getPisoActual()).getTitle());
+                        break;
+                    }
                 }
             }
         } else {
