@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -237,7 +238,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
         //Creo las polilineas y overlays que voy a usar
         cantPisos = cantPisos +1;
         for(int i=0;i<cantPisos;i++){
-            PolylineOptions p = new PolylineOptions().width(7);
+            PolylineOptions p = new PolylineOptions().width(5).color(Color.RED);
             Vector<GroundOverlayOptions> g = new Vector<>();
             misPolilineas.add(p);
             misOverlays.add(g);
@@ -312,6 +313,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
             if(nodos.elementAt(i).getPiso() > cantPisos){
                 cantPisos = nodos.elementAt(i).getPiso();
             }
+
             //Agrego los marcadores
             misMarcadores.add(new MarkerOptions().position(new LatLng(nodos.elementAt(i).getLatitud(), nodos.elementAt(i).getLongitud())).title(nodos.elementAt(i).getNombre() + " - " + texto).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
             for(int j=0;j<cantidad_edificios;j++){
@@ -326,11 +328,18 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
             }
         }
 
+        //Creo las polilineas y overlays que voy a usar
+        cantPisos = cantPisos +1;
+        for(int i=0;i<cantPisos;i++){
+            Vector<GroundOverlayOptions> g = new Vector<>();
+            misOverlays.add(g);
+        }
+
         //Agrego los overlays a mi vector
         for(int i=0;i<edificios.size();i++){
-            if(hashMapID.containsKey(hashMapID.get(edificios.elementAt(i)))) {
-                misOverlays.elementAt(Integer.parseInt(edificios.elementAt(i).substring(edificios.elementAt(i).indexOf("_") + 1))).
-                        add(new GroundOverlayOptions()
+            if(hashMapID.containsKey(edificios.elementAt(i))) {
+                misOverlays.elementAt(Integer.parseInt(edificios.elementAt(i).substring(edificios.elementAt(i).indexOf("_") + 1)))
+                        .add(new GroundOverlayOptions()
                                 .positionFromBounds(hashMapBounds.get(edificios.elementAt(i)))
                                 .image(BitmapDescriptorFactory.fromResource(hashMapID.get(edificios.elementAt(i)))));
             }
@@ -345,8 +354,10 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
         miMapa.addMarker(marcadoresPiso.elementAt(2*piso+1));
 
         //Agrego los overlays
-        for(int i=0;i<misOverlays.elementAt(piso).size();i++){
-            miMapa.addGroundOverlay(misOverlays.elementAt(piso).elementAt(i));
+        if(misOverlays.size() > piso) {
+            for (int i = 0; i < misOverlays.elementAt(piso).size(); i++) {
+                miMapa.addGroundOverlay(misOverlays.elementAt(piso).elementAt(i));
+            }
         }
     }
 
@@ -368,8 +379,10 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
         }
 
         //Agrego los overlays
-        for(int i=0;i<misOverlays.elementAt(piso).size();i++){
-            miMapa.addGroundOverlay(misOverlays.elementAt(piso).elementAt(i));
+        if(misOverlays.size() > piso) {
+            for (int i = 0; i < misOverlays.elementAt(piso).size(); i++) {
+                miMapa.addGroundOverlay(misOverlays.elementAt(piso).elementAt(i));
+            }
         }
     }
 
