@@ -189,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mapsFragment.mostrarNodos(oArmaCamino.nodosMapa(Nombre));
             menu.clear();
             menu.add("Planta Baja");
-            for(int i=1;i<=mapsFragment.getCantPisos();i++){
+            for(int i=1;i<mapsFragment.getCantPisos();i++){
                 menu.add("Piso "+i);
             }
             menu.getItem(mapsFragment.getPisoActual()).setTitle("*" + menu.getItem(mapsFragment.getPisoActual()).getTitle());
@@ -247,6 +247,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Punto P19 = new Punto(-31.639697, -60.673139, " ", 0, "");
         Punto P20 = new Punto(-31.639910, -60.670980, " ", 0, " ");
         Punto P21 = new Punto(-31.639609, -60.670975, "FCM", 0, "Entrada FCM - Cantina");
+
         Punto P22 = new Punto(-31.639605, -60.671808, " ", 0, " ");
         Punto P23 = new Punto(-31.640545, -60.673222, " ", 0, " ");
         Punto P24 = new Punto(-31.640975, -60.673189, "Ciudad Universitaria", 0, "Salida");
