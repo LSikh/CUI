@@ -18,6 +18,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -57,8 +59,9 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
 
     private Vector<Vector<GroundOverlayOptions>> misOverlays = new Vector<>();
 
-    private Map<String, LatLngBounds> hashMapBounds = new HashMap<>();
-    private Map<String, Integer> hashMapID = new HashMap<>();
+    private Map<String, LatLngBounds> hashMapBounds = new HashMap<>();  //hashMap con el nombre del edificio y los limites del mismo
+    private Map<String, Integer> hashMapID = new HashMap<>(); //hashMap con el nombre del edificio y el plano del mismo
+    private Map<LatLng, Integer> hashMapImagenes = new HashMap<>(); //hashMap con la ubicación de los nodos y las imagenes que le corresponden
 
     private float angle = 0;
     private double lat;
@@ -95,6 +98,28 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
             @Override
             public void onMapClick(LatLng latLng) {
                 Log.d("Prueba",latLng.latitude + ", " + latLng.longitude);
+            }
+        });
+
+        //Hago mi propia InfoWindow
+        miMapa.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+            @Override
+            public View getInfoWindow(Marker marker) {
+                return null;
+            }
+
+            @Override
+            public View getInfoContents(Marker marker) {
+                View v = getActivity().getLayoutInflater().inflate(R.layout.custom_infowindow,null);
+                ImageView imagen = (ImageView) v.findViewById(R.id.imageView);
+                TextView titulo = (TextView) v.findViewById(R.id.titulo);
+
+                if(hashMapImagenes.containsKey(marker.getPosition())) {
+                    imagen.setImageResource(hashMapImagenes.get(marker.getPosition()));
+                }
+
+                titulo.setText(marker.getTitle());
+                return v;
             }
         });
 
@@ -292,6 +317,9 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
                 .position(new LatLng(path.elementAt(path.size()-1).getLatitud(),path.elementAt(path.size()-1).getLongitud()))
                 .title(path.elementAt(path.size()-1).getNombre())
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+
+        //Cargo las imagenes en el map
+        cargarMapaImagnes(path);
     }
 
     //Recibo un conjunto de puntos y creo marcadores para todos ellos
@@ -344,6 +372,9 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
                                 .image(BitmapDescriptorFactory.fromResource(hashMapID.get(edificios.elementAt(i)))));
             }
         }
+
+        //Cargo imagenes en el map
+        cargarMapaImagnes(nodos);
     }
 
     public void cambiarPolilinea(int piso){
@@ -409,10 +440,20 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
         hashMapBounds.put("ed1_0", new LatLngBounds(new LatLng(-31.639872, -60.670817), new LatLng(-31.639313, -60.670216)));
     }
 
-    //hasMap de Edificio - Plano del Edificio
+    //hashMap de Edificio - Plano del Edificio
     public void cargarMapaID(){
         hashMapID.put("ed0_0", R.drawable.ed0_0);
         hashMapID.put("ed0_1", R.drawable.ed0_1);
+    }
+
+    //hashMap de Posición de nodo - Imagen del nodod
+    public void cargarMapaImagnes(Vector<Punto> puntos){
+        hashMapImagenes.clear();
+        for(int i=0;i<puntos.size();i++){
+            if(puntos.elementAt(i).getImagen() != null) {
+                hashMapImagenes.put(new LatLng(puntos.elementAt(i).getLatitud(), puntos.elementAt(i).getLongitud()), puntos.elementAt(i).getImagen());
+            }
+        }
     }
 
     @Override
