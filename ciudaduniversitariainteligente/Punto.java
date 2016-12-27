@@ -12,9 +12,22 @@ public class Punto implements Comparable<Punto> {
     private Vector<Punto> Vecinos;
     private int Piso;
     private String Nombre;
+    private Integer Imagen;
 
     private Punto Padre;
     public float costo;
+    
+    public Punto(double Lat, double Lon, String oEdificio, int piso, String oNombre, Integer oImg){
+        this.Latitud = Lat;
+        this.Longitud = Lon;
+        this.Edificio = oEdificio;
+        this.Piso = piso;
+        this.Nombre = oNombre;
+        Vecinos = new Vector<>();
+        this.costo = 0;
+        Padre = null;
+        this.Imagen = oImg;
+    }
 
 
     public Punto(double Lat, double Lon, String oEdificio, int piso, String oNombre){
@@ -40,6 +53,7 @@ public class Punto implements Comparable<Punto> {
     public String getNombre(){return Nombre;}
     public int cantVecinos(){return Vecinos.size();}
     public Punto getVecino(int i){return Vecinos.elementAt(i);}
+    public Integer getImagen() {return Imagen;}
 
     public void setPadre (Punto P){this.Padre = P;}
     public Punto getPadre(){return this.Padre;}
