@@ -219,8 +219,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     //Funcion para crear nodos del mapa y sus conexiones
     private void cargaNodos() {
-        Punto P1 = new Punto(-31.640740, -60.671861, "Ciudad Universitaria", 0, "Entrada Ciudad Universitaria");
-        Punto P2 = new Punto(-31.640142, -60.671858, " ", 0, "Cajero");
+        Punto P1 = new Punto(-31.640740, -60.671861, "Ciudad Universitaria", 0, "Entrada Ciudad Universitaria",R.drawable.p1);
+        Punto P2 = new Punto(-31.640142, -60.671858, " ", 0, "Cajero",R.drawable.p2);
         Punto P3 = new Punto(-31.639968, -60.671869, "FICH", 0, "Entrada FICH");
         Punto P4 = new Punto(-31.639962, -60.672141, "FICH", 0, "Aula 8");
 
