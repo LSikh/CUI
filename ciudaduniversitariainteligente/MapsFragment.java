@@ -52,12 +52,16 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
     private int pisoActual = 0;
     private int cantidad_edificios = 2;           //Cantidad de edificios relevados
 
-    private Vector<PolylineOptions> misPolilineas = new Vector<>();
-    private Vector<MarkerOptions> marcadoresPiso = new Vector<>();
+    private Vector<PolylineOptions> misPolilineas = new Vector<>(); //Vector de polilineas, cada elemento será una polilinea para un piso
+    private Vector<MarkerOptions> marcadoresPiso = new Vector<>(); //Vector de marcadores por piso, dos marcadores por polilinea por piso
+                                                                   //uno en cada extremo
 
-    private Vector<MarkerOptions> misMarcadores = new Vector<>();
+    private Vector<MarkerOptions> misMarcadores = new Vector<>();  //Vector de nodos para mostrar nodos sueltos (baños, bares, oficinas, etc)
 
-    private Vector<Vector<GroundOverlayOptions>> misOverlays = new Vector<>();
+    private Vector<Vector<GroundOverlayOptions>> misOverlays = new Vector<>(); //Vector de overLays, los planos de cada edificio
+                                                                               //El vector de afuera es para los pisos, cada elemento es un piso
+                                                                               //Cada elemento es un vector que tiene overlays de 1 o mas edificios
+                                                                               //Una polilinea puede pasar por mas de un edificio en un piso
 
     private Map<String, LatLngBounds> hashMapBounds = new HashMap<>();  //hashMap con el nombre del edificio y los limites del mismo
     private Map<String, Integer> hashMapID = new HashMap<>(); //hashMap con el nombre del edificio y el plano del mismo
@@ -94,6 +98,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
     public void onMapReady(GoogleMap googleMap) {
         miMapa = googleMap;
 
+        //Esto es para armar el grafo, clickeando encima del overlay y viendo la lat y long del punto
         miMapa.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
@@ -101,7 +106,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
             }
         });
 
-        //Hago mi propia InfoWindow
+        //Hago mi propia InfoWindow, para poder mostrar una imagen del nodo cuando hago click en el y ver el lugar que está señalado
         miMapa.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
             @Override
             public View getInfoWindow(Marker marker) {
@@ -114,6 +119,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
                 ImageView imagen = (ImageView) v.findViewById(R.id.imageView);
                 TextView titulo = (TextView) v.findViewById(R.id.titulo);
 
+                //Busco en el mapa por ese punto, si tiene imagen la agrego
                 if(hashMapImagenes.containsKey(marker.getPosition())) {
                     imagen.setImageResource(hashMapImagenes.get(marker.getPosition()));
                 }
@@ -122,13 +128,13 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
                 return v;
             }
         });
-
+        
+        //Muevo la camara hasta mi posicion y agrego un marcador allí
         LatLng position = new LatLng(this.lat, this.lon);
         miMapa.moveCamera(CameraUpdateFactory.newLatLng(position));
         miMapa.moveCamera(CameraUpdateFactory.zoomTo(18));
         miPosicion = new MarkerOptions().position(new LatLng(this.lat, this.lon)).title("Usted está aquí");
         miPosicionMarcador = miMapa.addMarker(miPosicion);
-        //Hasta aca, muevo la camara hasta mi posicion y agrego un marcador allí
 
         //Agrego los marcadores adicionales (Edificios, baños, bares,etc), si los hay
         for (int i = 0; i < misMarcadores.size(); i++) {
@@ -159,7 +165,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
         }
     }
 
-    //Setters y getters de latitud y longitud
+    //Setters, getters y demas utilidades
     public void setLat(double l) {
         this.lat = l;
     }
@@ -193,7 +199,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
                 case Sensor.TYPE_ORIENTATION:
                     float degree = Math.round(sensorEvent.values[0]);
                     //Si el angulo de rotación con respecto a la rotación de la muestra anterior es mayor a 20
-                    //roto la camara, sino no
+                    //roto la camara, sino no porque sino baila mucho
                     if (Math.abs(degree - angle) > 20) {
                         angle = degree;
                         CameraPosition oldPos = miMapa.getCameraPosition();
@@ -228,6 +234,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
         miPosicion.position(position);
         miPosicionMarcador.remove();
         miPosicionMarcador = miMapa.addMarker(miPosicion);
+        
         if(!misPolilineas.isEmpty() && pisoActual+1<=misPolilineas.size()){
             cambiarPolilinea(pisoActual);
         }
@@ -240,6 +247,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
         else if(pisoActual+1 > misMarcadores.size() && !misMarcadores.isEmpty()){
             Toast.makeText(getActivity().getApplicationContext(),"Su objetivo está en un piso inferior",Toast.LENGTH_LONG).show();
         }
+        
     }
 
     //Obtengo mi latitud y longitud en un objeto LatLng
@@ -254,6 +262,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
         marcadoresPiso.clear();
         cantPisos = 0;
         Vector<String> edificios = new Vector<>();
+        
+        //Veo cuantos pisos hay
         for(int i=0;i<path.size();i++){
             if(path.elementAt(i).getPiso() > cantPisos){
                 cantPisos = path.elementAt(i).getPiso();
@@ -273,7 +283,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
         for(int i=0;i<path.size();i++) {
             misPolilineas.elementAt(path.elementAt(i).getPiso()).add(new LatLng(path.elementAt(i).getLatitud(), path.elementAt(i).getLongitud()));
             for(int j=0;j<cantidad_edificios;j++){
-                //Veo si ese marcador está dentro de algun edificio
+                //Veo si ese marcador está dentro de algun edificio con el mapa y la funcion dentroDeLimites
+                //Tratar de optimizar esto
                 if(hashMapBounds.containsKey("ed" + j + "_" + path.elementAt(i).getPiso())){
                     if (dentroDeLimites(new LatLng(path.elementAt(i).getLatitud(), path.elementAt(i).getLongitud()), hashMapBounds.get("ed" + j + "_" + path.elementAt(i).getPiso()))) {
                         if (!edificios.contains("ed" + j + "_" + path.elementAt(i).getPiso())) {
