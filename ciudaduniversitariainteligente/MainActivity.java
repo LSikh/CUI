@@ -30,9 +30,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private IntentIntegrator scanIntegrator = new IntentIntegrator(this);
     private ultimasBusquedas ultimasBusquedas = null;
     private Menu menu = null;
-
     /*Funciones*/
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +71,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+    //Boton para volver atras del telefono
+    //Si estoy viendo otro Fragment distinto a MapFragment, vuelvo atras en la pila. Si estoy en MapFragment, salgo de la aplicacion
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -101,8 +101,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+    //Menu que está arriba a la derecha, para maenjar los pisos que tiene el camino y en cual estoy parado
+    //Mejorar esto
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        //El item que tiene un * al principio, es el piso que estoy viendo
         for(int i=0;i<menu.size();i++){
             if(menu.getItem(i).getTitle().charAt(0) == '*'){
                 menu.getItem(i).setTitle(menu.getItem(i).getTitle().toString().substring(1));
@@ -112,14 +115,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         /*Si estoy mostrando una polilinea, la cambio segun la opcion de piso seleccionada*/
         if(mapsFragment.modoPolilinea()) {
+            //Planta Baja
             if (item.toString().contains("Baja")) {
                 mapsFragment.cambiarPolilinea(0);
                 return true;
+            //El resto de los pisos
             } else {
                 mapsFragment.cambiarPolilinea(Integer.parseInt(item.toString().substring(item.toString().indexOf(' ') + 1)));
             }
         }
-        /*Esto es si estoy mostrando nodos*/
+        /*Esto es si estoy mostrando marcadores sueltos en el mapa*/
         else{
             if (item.toString().contains("Baja")) {
                 mapsFragment.cambiarNodos(0);
@@ -139,6 +144,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.buscar) {
+            //Fragment de busqueda, para hacer una busqueda nueva
             if (!(fm.findFragmentById(R.id.fragment_container) instanceof Busqueda)) {
                 qrBoton.hide();
                 menu.clear();
@@ -148,6 +154,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
 
         } else if (id == R.id.mapa_completo) {
+            //Vuelvo al mapa de Google y le quito todo. Solo dejo el marcador de mi posicion
             mapsFragment.limpiarMapa();
             menu.clear();
             if (!(fm.findFragmentById(R.id.fragment_container) instanceof MapsFragment)) {
@@ -156,6 +163,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
 
         } else if (id == R.id.ultimas) {
+            //Fragment para ver las ultimas busquedas
             if (!(fm.findFragmentById(R.id.fragment_container) instanceof ultimasBusquedas)) {
                 qrBoton.hide();
                 menu.clear();
@@ -346,14 +354,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
         if (scanningResult != null) {
             //Quiere decir que se obtuvo resultado pro lo tanto:
-            //Desplegamos en pantalla el contenido del código de barra scaneado
+            //Actualizo los datos en MapsFragment
             String scanContent = scanningResult.getContents();
             mapsFragment.setLat(Double.parseDouble(scanContent.toString().substring(0, (scanContent.toString().indexOf(',')))));
             mapsFragment.setLon(Double.parseDouble(scanContent.toString().substring((scanContent.toString().indexOf(',')) + 1, scanContent.length()-2)));
             mapsFragment.setPisoActual(Integer.parseInt(scanContent.toString().substring(scanContent.toString().length()-1)));
             mapsFragment.actualizaPosicion();
 
-            //Actualizo el * del menu de pisos cuando cambio el piso por QR
+            //Actualizo el * del menu de pisos cuando cambio el piso por QR, buscar como mejorar esto
             if(mapsFragment.getPisoActual()+1 <= mapsFragment.getCantPisos()) {
                 for (int i = 0; i < menu.size(); i++) {
                     if (menu.getItem(i).getTitle().charAt(0) == '*') {
