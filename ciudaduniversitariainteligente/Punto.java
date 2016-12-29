@@ -17,6 +17,7 @@ public class Punto implements Comparable<Punto> {
     private Punto Padre;
     public float costo;
     
+    //Constructor para puntos con imagen
     public Punto(double Lat, double Lon, String oEdificio, int piso, String oNombre, Integer oImg){
         this.Latitud = Lat;
         this.Longitud = Lon;
@@ -29,7 +30,7 @@ public class Punto implements Comparable<Punto> {
         this.Imagen = oImg;
     }
 
-
+    //Sin imagen. Podría hacer un solo constructor y pasarle null al parametro de imagen, es lo mismo.
     public Punto(double Lat, double Lon, String oEdificio, int piso, String oNombre){
         this.Latitud = Lat;
         this.Longitud = Lon;
