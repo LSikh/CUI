@@ -52,6 +52,7 @@ public class ArmaCamino{
 
             while (!Cola.isEmpty()) {
                 Punto aux = Cola.remove();
+                //Si aux es el punto que estoy buscando, corto y empiezo a recorrer hacia atras para armar el camino
                 if (aux.getNombre().contains(oNombre) && aux.getEdificio().contains(oEdificio)) {
                     while (aux != null) {
                         path.add(aux);
@@ -60,6 +61,7 @@ public class ArmaCamino{
                     Collections.reverse(path);
                     break;
                 }
+                //Sino, agrego todos los vecinos de aux a la Cola y sigo buscando
                 for (int j = 0; j < aux.cantVecinos(); j++) {
                     Punto vecino = aux.getVecino(j);
                     if (!visitado.contains(vecino)) {
@@ -89,7 +91,8 @@ public class ArmaCamino{
 
     //Setear el punto mas cercano. Empiezo tomando al primer elemento del vector
     public void setPuntoMasCercano(LatLng posicion, int pisoActual){
-        puntoMasCercano = Nodos.elementAt(0); //Por defecto, en la entrada de la CU
+        puntoMasCercano = Nodos.elementAt(0); //Por defecto, en la entrada de la Ciudad Universitaria
+        //Si estoy dentro de la CU, busco dentro
         if(enCiudadUniversitaria(posicion)) {
             double dist = Math.pow(Nodos.elementAt(0).getLatitud() - posicion.latitude, 2) + Math.pow(Nodos.elementAt(0).getLongitud() - posicion.longitude, 2);
             for (int i = 1; i < Nodos.size(); i++) {
@@ -140,7 +143,7 @@ public class ArmaCamino{
     //Retorna la cantidad de nodos cargados
     public int cantNodos(){return Nodos.size();}
 
-    //Distancia entre dos posiciones
+    //Distancia entre dos puntos, modulo del vector
     public float calculaDistancia(LatLng pos1, LatLng pos2){
         float dlat = (float) (pos2.latitude - pos1.latitude);
         float dlon = (float) (pos2.longitude - pos1.longitude);
