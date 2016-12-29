@@ -31,5 +31,5 @@ Fragment para gestionar la lista de las ultimas busquedas que se realizaron para
 
 -----MapsFragment-----
 Este fragmento gestiona todo lo relativo a lo mapas. Una lista de nodos de la clase ArmaCamino y con ella trabajo
-En el identifico en que piso estoy estoy parado (PB, P1, P2....), la cantidad de pisos que hay hasta mi objetivo, un vector de polilinas que son las que me marcan el camino por los diferentes pisos, y un vector de vectores de OverLays (para tener los overlays por piso, siendo que la polilinea puede pasar por 1 o mas edificios y debo mostrar los planos de todos aquellos por donde pase, segun el piso que estoy viendo). Mismo caso para los marcadores que muestro sobre el mapa
+En el identifico en que piso estoy estoy parado (PB, P1, P2....), la cantidad de pisos que hay hasta mi objetivo, un vector de polilinas que son las que me marcan el camino por los diferentes pisos, y un vector de vectores de OverLays (para tener los overlays por piso, siendo que la polilinea puede pasar por 1 o mas edificios y debo mostrar los planos de todos aquellos por donde pase, segun el piso que estoy viendo). Mismo caso para los marcadores que muestro sobre el mapa. Tambien gestiona el SensorManager para rotar el mapa segun se mueve uno
 
