@@ -23,6 +23,7 @@ public class ultimasBusquedas extends Fragment {
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        //Inflo mi listView
         final View rootView = inflater.inflate(R.layout.ultimas_busquedas, container, false);
 
         //Abro la base de datos
@@ -45,7 +46,8 @@ public class ultimasBusquedas extends Fragment {
             ListAdapter adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, array);
 
             final ListView listView = (ListView) rootView.findViewById(R.id.listView);
-
+            
+            //ItemClickListener para los elementos del listView, para hacer una busqueda desde aquí
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
