@@ -5,29 +5,14 @@
  */
 package NodosPkg;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Map;
-import java.util.Set;
 import java.util.Vector;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-import javax.json.JsonException;
-import javax.json.JsonNumber;
-import javax.json.JsonString;
-import javax.json.JsonValue;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.POST;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import org.json.*;
 
 /**
  * REST Web Service
@@ -174,18 +159,31 @@ public class NodossResource {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getJson() {
-        
-        return "hola mundo";
+    public String getJson() throws JSONException {
+        return oArmaCaminoToString();
         //TODO return proper representation object
         //throw new UnsupportedOperationException();
     }
     
-    public String oArmaCaminoToString(){
-        String res = "";       
+    public String oArmaCaminoToString() throws JSONException{
+        JSONArray jArray = new JSONArray();
+        JSONObject jFinal = new JSONObject();
         for(int i=0;i<oArmaCamino.size();i++){
+            JSONObject jObject = new JSONObject();
+            //Informacion del nodo
+            jObject.put("Lat",oArmaCamino.elementAt(i).getLatitud());
+            jObject.put("Lon",oArmaCamino.elementAt(i).getLongitud());
+            jObject.put("Edi",oArmaCamino.elementAt(i).getEdificio());
+            jObject.put("Nomb",oArmaCamino.elementAt(i).getNombre());
+            jObject.put("Piso",oArmaCamino.elementAt(i).getPiso());
+            //Vecinos de los puntos??
             
+            //Imagenes??
+            
+            
+            jArray.put(jObject);
         }
-        return res;
+        jFinal.put("Nodos", jArray);
+        return jFinal.toString();
     }
 }
