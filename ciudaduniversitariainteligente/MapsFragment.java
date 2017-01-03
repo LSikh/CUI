@@ -455,6 +455,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
     public void cargarMapaID(){
         hashMapID.put("ed0_0", R.drawable.ed0_0);
         hashMapID.put("ed0_1", R.drawable.ed0_1);
+        hashMapID.put("ed0_2", R.drawable.ed0_2);
+        hashMapID.put("ed0_3", R.drawable.ed0_3);
     }
 
     //hashMap de Posición de nodo - Imagen del nodod
