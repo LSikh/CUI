@@ -13,25 +13,13 @@ public class Punto implements Comparable<Punto> {
     private int Piso;
     private String Nombre;
     private Integer Imagen;
+    private Integer id;
 
     private Punto Padre;
     public float costo;
-    
-    //Constructor para puntos con imagen
-    public Punto(double Lat, double Lon, String oEdificio, int piso, String oNombre, Integer oImg){
-        this.Latitud = Lat;
-        this.Longitud = Lon;
-        this.Edificio = oEdificio;
-        this.Piso = piso;
-        this.Nombre = oNombre;
-        Vecinos = new Vector<>();
-        this.costo = 0;
-        Padre = null;
-        this.Imagen = oImg;
-    }
 
-    //Sin imagen. Podría hacer un solo constructor y pasarle null al parametro de imagen, es lo mismo.
-    public Punto(double Lat, double Lon, String oEdificio, int piso, String oNombre){
+
+    public Punto(Integer id, double Lat, double Lon, String oEdificio, int piso, String oNombre, Integer oImg){
         this.Latitud = Lat;
         this.Longitud = Lon;
         this.Edificio = oEdificio;
@@ -40,6 +28,14 @@ public class Punto implements Comparable<Punto> {
         Vecinos = new Vector<>();
         this.costo = 0;
         Padre = null;
+        if(oImg == -1){
+            oImg = null;
+        }
+        else{
+            this.Imagen = oImg;
+        }
+        this.Imagen = oImg;
+        this.id = id;
     }
 
     public void addVecino(Punto P){
@@ -55,7 +51,7 @@ public class Punto implements Comparable<Punto> {
     public int cantVecinos(){return Vecinos.size();}
     public Punto getVecino(int i){return Vecinos.elementAt(i);}
     public Integer getImagen() {return Imagen;}
-
+    public Integer getId(){return id;}
     public void setPadre (Punto P){this.Padre = P;}
     public Punto getPadre(){return this.Padre;}
 

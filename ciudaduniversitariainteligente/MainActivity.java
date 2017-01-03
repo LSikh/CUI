@@ -3,6 +3,8 @@ package com.holamundo.ciudaduniversitariainteligente;
 
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -30,7 +32,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private IntentIntegrator scanIntegrator = new IntentIntegrator(this);
     private ultimasBusquedas ultimasBusquedas = null;
     private Menu menu = null;
+    private BaseDatos CUdb = null;
+
     /*Funciones*/
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +43,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Ciudad Inteligente");
         setSupportActionBar(toolbar);
+
+        //Instancio la base de datos
+        CUdb = new BaseDatos(getApplicationContext(),"DBCUI", null, 1);
 
         //Instancio los objetos para ArmaCamino y el MapFragment
         oArmaCamino = new ArmaCamino(this);
@@ -71,8 +79,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    //Boton para volver atras del telefono
-    //Si estoy viendo otro Fragment distinto a MapFragment, vuelvo atras en la pila. Si estoy en MapFragment, salgo de la aplicacion
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -101,11 +107,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    //Menu que está arriba a la derecha, para maenjar los pisos que tiene el camino y en cual estoy parado
-    //Mejorar esto
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        //El item que tiene un * al principio, es el piso que estoy viendo
         for(int i=0;i<menu.size();i++){
             if(menu.getItem(i).getTitle().charAt(0) == '*'){
                 menu.getItem(i).setTitle(menu.getItem(i).getTitle().toString().substring(1));
@@ -115,16 +118,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         /*Si estoy mostrando una polilinea, la cambio segun la opcion de piso seleccionada*/
         if(mapsFragment.modoPolilinea()) {
-            //Planta Baja
             if (item.toString().contains("Baja")) {
                 mapsFragment.cambiarPolilinea(0);
                 return true;
-            //El resto de los pisos
             } else {
                 mapsFragment.cambiarPolilinea(Integer.parseInt(item.toString().substring(item.toString().indexOf(' ') + 1)));
             }
         }
-        /*Esto es si estoy mostrando marcadores sueltos en el mapa*/
+        /*Esto es si estoy mostrando nodos*/
         else{
             if (item.toString().contains("Baja")) {
                 mapsFragment.cambiarNodos(0);
@@ -144,7 +145,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.buscar) {
-            //Fragment de busqueda, para hacer una busqueda nueva
             if (!(fm.findFragmentById(R.id.fragment_container) instanceof Busqueda)) {
                 qrBoton.hide();
                 menu.clear();
@@ -154,7 +154,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
 
         } else if (id == R.id.mapa_completo) {
-            //Vuelvo al mapa de Google y le quito todo. Solo dejo el marcador de mi posicion
             mapsFragment.limpiarMapa();
             menu.clear();
             if (!(fm.findFragmentById(R.id.fragment_container) instanceof MapsFragment)) {
@@ -163,7 +162,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
 
         } else if (id == R.id.ultimas) {
-            //Fragment para ver las ultimas busquedas
             if (!(fm.findFragmentById(R.id.fragment_container) instanceof ultimasBusquedas)) {
                 qrBoton.hide();
                 menu.clear();
@@ -227,126 +225,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     //Funcion para crear nodos del mapa y sus conexiones
     private void cargaNodos() {
-        Punto P1 = new Punto(-31.640740, -60.671861, "Ciudad Universitaria", 0, "Entrada Ciudad Universitaria",R.drawable.p1);
-        Punto P2 = new Punto(-31.640142, -60.671858, " ", 0, "Cajero",R.drawable.p2);
-        Punto P3 = new Punto(-31.639968, -60.671869, "FICH", 0, "Entrada FICH");
-        Punto P4 = new Punto(-31.639962, -60.672141, "FICH", 0, "Aula 8");
+        Vector<Punto> puntos = new Vector<>();
+        SQLiteDatabase db1 = CUdb.getReadableDatabase();
+        Cursor c = db1.rawQuery("SELECT *  FROM Punto",null);
+        c.moveToFirst();
 
-        Punto P25 = new Punto (-31.639936,-60.672263,"FICH",1,"Escalera");
-        Punto P26 = new Punto (-31.639934, -60.672147,"FICH",1,"");
-        Punto P27 = new Punto(-31.639753,-60.672159,"FICH",1,"Baños");
-        Punto P28 = new Punto(-31.639755,  -60.672330,"FICH",1,"Aula Laboratorio 1 y 2");
+        //Creo y agrego los nodos
+        if(c.getCount() > 0) {
+            do {
+                Punto oPunto = new Punto(c.getInt(0),Double.parseDouble(c.getString(1)),Double.parseDouble(c.getString(2)),c.getString(3),c.getInt(4),c.getString(5),c.getInt(6));
+                puntos.add(oPunto);
+            } while (c.moveToNext());
+        }
 
-
-        Punto P5 = new Punto(-31.639970, -60.672441, "FICH", 0, "Fotocopiadora - Baño");
-        Punto P6 = new Punto(-31.639841, -60.672446, "FICH", 0, "Cantina");
-        Punto P7 = new Punto(-31.639759, -60.672446, "FICH", 0, "Aula Magna - Aula 3");
-        Punto P8 = new Punto(-31.639755, -60.672220, "FICH", 0, "Aula 5");
-        Punto P9 = new Punto(-31.639761, -60.672502, "FICH", 0, "Aula 3");
-        Punto P10 = new Punto(-31.639652, -60.672495, "FICH", 0, "Bicicletero");
-        Punto P11 = new Punto(-31.639763, -60.672643, "FICH", 0, "Aula 1 - Aula 2");
-        Punto P12 = new Punto(-31.639976, -60.672759, "FCBC", 0, "Fotocopiadora");
-        Punto P13 = new Punto(-31.639985, -60.673129, "FCBC", 0, "Entrada FCBC");
-        Punto P14 = new Punto(-31.640214, -60.673140, " ", 0, "Fuente");
-        Punto P15 = new Punto(-31.640214, -60.673322, "FADU - FHUC ", 0, "Entrada FADU - FHUC");
-        Punto P16 = new Punto(-31.640450, -60.673316, " ", 0, " ");
-        Punto P17 = new Punto(-31.640459, -60.673917, "ISM", 0, "Entrada ISM");
-        Punto P18 = new Punto(-31.639978, -60.673879, "Cubo", 0, "Entrada Cubo");
-        Punto P19 = new Punto(-31.639697, -60.673139, " ", 0, "");
-        Punto P20 = new Punto(-31.639910, -60.670980, " ", 0, " ");
-        Punto P21 = new Punto(-31.639609, -60.670975, "FCM", 0, "Entrada FCM - Cantina");
-
-        Punto P22 = new Punto(-31.639605, -60.671808, " ", 0, " ");
-        Punto P23 = new Punto(-31.640545, -60.673222, " ", 0, " ");
-        Punto P24 = new Punto(-31.640975, -60.673189, "Ciudad Universitaria", 0, "Salida");
-
-        P1.addVecino(P2);
-        P2.addVecino(P1);
-        P2.addVecino(P3);
-        P3.addVecino(P2);
-        P3.addVecino(P4);
-        P3.addVecino(P20);
-        P3.addVecino(P22);
-        P4.addVecino(P3);
-        P4.addVecino(P5);
-
-        P4.addVecino(P25);
-        P25.addVecino(P4); P25.addVecino(P26);
-        P26.addVecino(P25); P26.addVecino(P27);
-        P27.addVecino(P26); P27.addVecino(P28);
-        P28.addVecino(P27);
-
-        P5.addVecino(P4);
-        P5.addVecino(P6);
-        P5.addVecino(P12);
-        P6.addVecino(P5);
-        P6.addVecino(P7);
-        P7.addVecino(P6);
-        P7.addVecino(P8);
-        P7.addVecino(P9);
-        P8.addVecino(P7);
-        P9.addVecino(P7);
-        P9.addVecino(P10);
-        P9.addVecino(P11);
-        P10.addVecino(P9);
-        P10.addVecino(P19);
-        P10.addVecino(P22);
-        P11.addVecino(P9);
-        P12.addVecino(P5);
-        P12.addVecino(P13);
-        P13.addVecino(P12);
-        P13.addVecino(P14);
-        P13.addVecino(P18);
-        P13.addVecino(P19);
-        P14.addVecino(P13);
-        P14.addVecino(P15);
-        P14.addVecino(P23);
-        P15.addVecino(P14);
-        P15.addVecino(P16);
-        P16.addVecino(P15);
-        P16.addVecino(P17);
-        P17.addVecino(P16);
-        P18.addVecino(P13);
-        P19.addVecino(P13);
-        P19.addVecino(P10);
-        P20.addVecino(P3);
-        P20.addVecino(P21);
-        P21.addVecino(P20);
-        P21.addVecino(P22);
-        P22.addVecino(P21);
-        P22.addVecino(P10);
-        P23.addVecino(P14);
-        P23.addVecino(P24);
-        P24.addVecino(P23);
-
-        oArmaCamino.addNodo(P1);
-        oArmaCamino.addNodo(P2);
-        oArmaCamino.addNodo(P3);
-        oArmaCamino.addNodo(P4);
-        oArmaCamino.addNodo(P5);
-        oArmaCamino.addNodo(P6);
-        oArmaCamino.addNodo(P7);
-        oArmaCamino.addNodo(P8);
-        oArmaCamino.addNodo(P9);
-        oArmaCamino.addNodo(P10);
-        oArmaCamino.addNodo(P11);
-        oArmaCamino.addNodo(P12);
-        oArmaCamino.addNodo(P13);
-        oArmaCamino.addNodo(P14);
-        oArmaCamino.addNodo(P15);
-        oArmaCamino.addNodo(P16);
-        oArmaCamino.addNodo(P17);
-        oArmaCamino.addNodo(P18);
-        oArmaCamino.addNodo(P19);
-        oArmaCamino.addNodo(P20);
-        oArmaCamino.addNodo(P21);
-        oArmaCamino.addNodo(P22);
-        oArmaCamino.addNodo(P23);
-        oArmaCamino.addNodo(P24);
-        oArmaCamino.addNodo(P25);
-        oArmaCamino.addNodo(P26);
-        oArmaCamino.addNodo(P27);
-        oArmaCamino.addNodo(P28);
+        //Genero las conexiones
+        for(int i = 0;i<puntos.size();i++){
+            Cursor d = db1.rawQuery("SELECT idHasta FROM Conexiones WHERE idDesde = " + puntos.elementAt(i).getId(), null);
+            d.moveToFirst();
+            if(d.getCount() > 0) {
+                do {
+                    puntos.elementAt(i).addVecino(puntos.elementAt(d.getInt(0)));
+                } while (d.moveToNext());
+            }
+            oArmaCamino.addNodo(puntos.elementAt(i));
+        }
+        //Cierro DB
+        puntos.clear();
+        db1.close();
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -354,14 +259,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
         if (scanningResult != null) {
             //Quiere decir que se obtuvo resultado pro lo tanto:
-            //Actualizo los datos en MapsFragment
+            //Desplegamos en pantalla el contenido del código de barra scaneado
             String scanContent = scanningResult.getContents();
             mapsFragment.setLat(Double.parseDouble(scanContent.toString().substring(0, (scanContent.toString().indexOf(',')))));
             mapsFragment.setLon(Double.parseDouble(scanContent.toString().substring((scanContent.toString().indexOf(',')) + 1, scanContent.length()-2)));
             mapsFragment.setPisoActual(Integer.parseInt(scanContent.toString().substring(scanContent.toString().length()-1)));
             mapsFragment.actualizaPosicion();
 
-            //Actualizo el * del menu de pisos cuando cambio el piso por QR, buscar como mejorar esto
+            //Actualizo el * del menu de pisos cuando cambio el piso por QR
             if(mapsFragment.getPisoActual()+1 <= mapsFragment.getCantPisos()) {
                 for (int i = 0; i < menu.size(); i++) {
                     if (menu.getItem(i).getTitle().charAt(0) == '*') {
