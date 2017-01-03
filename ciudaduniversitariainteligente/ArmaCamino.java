@@ -72,7 +72,9 @@ public class ArmaCamino{
                             Cola.add(vecino);
                         }
                         for (Punto i : Cola) {
-                            if (i.getNombre() == vecino.getNombre() && i.getEdificio() == vecino.getEdificio() && i.costo > vecino.costo) {
+                           if (i.getLatitud() == vecino.getLatitud() &&
+                                    i.getLongitud() == vecino.getLongitud() &&
+                                    i.getPiso() == vecino.getPiso() && i.costo > vecino.costo) {
                                 Cola.remove(i);
                                 Cola.add(vecino);
                             }
