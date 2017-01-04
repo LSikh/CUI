@@ -37,9 +37,9 @@ public class Busqueda extends Fragment {
     private Spinner spinnerBusqueda3 = null;
 
     /*
-    spinnerBusqueda es el spinner principal donde están las posibles busqueda: Edificios, aulas, baños, etc 
-    spinnerBusqueda2 tendrá una lista de los edificios (si seleccione Edificios o aulas)
-    spinnerBusqueda3 tendrá una lista de las aulas para el edificio del spinnerBusqueda2 (si seleccione aulas en spinner2)
+    spinnerBusqueda es el spinner principal donde están las posibles busqueda
+    spinnerBusqueda2 tendrá una lista de los edificios
+    spinnerBusqueda3 tendrá una lista de las aulas para el edificio del spinnerBusqueda2
 
     En los atributos Edificio y Nombre, guardo los valores que voy a utilizar para hacer las busquedas y armar el camino
      */
@@ -62,14 +62,15 @@ public class Busqueda extends Fragment {
         spinnerBusqueda3.setVisibility(View.GONE);
 
         //Instancio la base de datos
-        CUdb = new BaseDatos(getActivity(),"DBBusquedas", null, 1);
+        CUdb = new BaseDatos(getActivity(),"DBCUI", null, 1);
 
-        //Adaptar para las posibles opciones de busqueda, uso uno propio porque queda mejor esteticamente
+        //Adaptar para las posibles opciones de busqueda
         String[] itemsSB1 = {" --- ", "Edificios", "Aulas", "Baños", "Bares"};
         ArrayAdapter<String> arraySB1 = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, itemsSB1);
         spinnerBusqueda.setAdapter(arraySB1);
 
-        //OnItemSelectedListener para el spinnerBusqueda, depende que selecciono, habilito o deshabilito los otros spinners
+
+        //OnItemSelectedListener para el spinnerBusqueda
         spinnerBusqueda.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -85,9 +86,9 @@ public class Busqueda extends Fragment {
                         break;
                     case "Edificios":
                         Nombre = "Entrada";
-                        //Lista de edificios que hay cargados. Debería hacer una función en ArmaCamino que me devuelva esta lista
-                        //para no tener que actualiarlo si agrego un nodo en un edificio nuevo
-                        String[] itemsSB2 = {"Todos", "FICH", "FCBC", "FCM", "FADU", "FHUC", "ISM", "Cubo"};
+                        spinnerBusqueda3.setVisibility(View.GONE);
+
+                        String[] itemsSB2 = {"Todos", "FICH", "FCBC", "FCM", "FADU", "FHUC", "ISM"};
                         ArrayAdapter<String> arraySB2 = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, itemsSB2);
                         spinnerBusqueda2.setAdapter(arraySB2);
 
@@ -97,7 +98,7 @@ public class Busqueda extends Fragment {
                         break;
                     case "Aulas":
 
-                        String[] itemsSB2a = {" --- ", "FICH", "FCBC", "FCM", "FADU", "FHUC", "ISM", "Cubo"};
+                        String[] itemsSB2a = {" --- ", "FICH", "FCBC", "FCM", "FADU", "FHUC", "ISM"};
                         ArrayAdapter<String> arraySB2a = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, itemsSB2a);
                         spinnerBusqueda2.setAdapter(arraySB2a);
 
@@ -142,8 +143,7 @@ public class Busqueda extends Fragment {
                             break;
                         default:
                             Edificio = spinnerBusqueda2.getSelectedItem().toString();
-                            //Busco las aulas para el edifcio seleccionado, voy de Busqueda a MainActivity y de MainActivity a ArmaCamino
-                            //y le paso el mensaje
+
                             Vector<Punto> puntoAulas = oMainActivity.verAulasPorEdificio(Edificio);
                             String [] sAulas = new String[puntoAulas.size()];
                             for(int j=0;j<sAulas.length;j++){
@@ -159,6 +159,8 @@ public class Busqueda extends Fragment {
                 } else {
                     switch (spinnerBusqueda2.getSelectedItem().toString()) {
                         case "Todos":
+                            Nombre = "";
+                            Edificio = "*";
                             break;
                         default:
                             Edificio = spinnerBusqueda2.getSelectedItem().toString();
@@ -193,7 +195,7 @@ public class Busqueda extends Fragment {
             }
         });
 
-        //Listener para el boton de busqueda, ejecuto la busqueda y la guardo en la base de datos
+        //Listener para el boton, ejecuto la busqueda y la guardo en la base de datos
         botonBusqueda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -202,8 +204,7 @@ public class Busqueda extends Fragment {
                     boolean repetido = false;
                     Cursor c = db1.rawQuery("SELECT nombre, edificio FROM Busquedas",null);
                     c.moveToFirst();
-                    //Veo si ya hice esta busqueda, si está en la base de datos, no la vuelvo a guardar
-                    //Tendría que buscar si no hay algo mas optimo para hacer esto
+
                     if(c.getCount() > 0) {
                         do {
                             if (c.getString(0).equals(Nombre) && c.getString(1).equals(Edificio)) {
