@@ -37,6 +37,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Vector;
 
 /**
@@ -153,8 +154,20 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
         //Agrego polilinea si la hay
         if(misPolilineas.size() != 0){
             miMapa.addPolyline(misPolilineas.elementAt(pisoActual));
-            miMapa.addMarker(marcadoresPiso.elementAt(2*pisoActual));
-            miMapa.addMarker(marcadoresPiso.elementAt(2*pisoActual+1));
+
+            //Y los marcadores, para eso busco cual agregar. Puede haber pisos con un solo marcador
+            int indx = 0;
+
+            for(int i=0;i<pisoActual;i++){
+                indx = indx + misPolilineas.elementAt(i).getPoints().size();
+            }
+
+            if(misPolilineas.elementAt(pisoActual).getPoints().size() == 1){
+                miMapa.addMarker(marcadoresPiso.elementAt(indx));
+            }else{
+                miMapa.addMarker(marcadoresPiso.elementAt(indx));
+                miMapa.addMarker(marcadoresPiso.elementAt(indx+1));
+            }
         }
 
         //Agrego los overlays
@@ -305,29 +318,23 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
             }
         }
 
-        //Busco cuales marcadores por piso voy a tener
-        marcadoresPiso.add(new MarkerOptions()
-                .position(new LatLng(path.elementAt(0).getLatitud(),path.elementAt(0).getLongitud()))
-                .title(path.elementAt(0).getNombre())
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-
-        for(int i=1;i<path.size()-1;i++){
-            if(path.elementAt(i).getPiso() != path.elementAt(i+1).getPiso()){
+        //Creo marcadores por piso. Uno para cada extremo de la polilinea
+        int indx = 0;
+        for(int i=0;i<misPolilineas.size();i++){
+            marcadoresPiso.add(new MarkerOptions()
+                    .position(new LatLng(misPolilineas.elementAt(i).getPoints().get(0).latitude,
+                            misPolilineas.elementAt(i).getPoints().get(0).longitude))
+                    .title(path.elementAt(indx).getNombre())
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+            if(misPolilineas.elementAt(i).getPoints().size() > 1) {
                 marcadoresPiso.add(new MarkerOptions()
-                        .position(new LatLng(path.elementAt(i).getLatitud(),path.elementAt(i).getLongitud()))
-                        .title(path.elementAt(i).getNombre())
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-                marcadoresPiso.add(new MarkerOptions()
-                        .position(new LatLng(path.elementAt(i+1).getLatitud(),path.elementAt(i+1).getLongitud()))
-                        .title(path.elementAt(i+1).getNombre())
+                        .position(new LatLng(misPolilineas.elementAt(i).getPoints().get(misPolilineas.elementAt(i).getPoints().size() - 1).latitude,
+                                misPolilineas.elementAt(i).getPoints().get(misPolilineas.elementAt(i).getPoints().size() - 1).longitude))
+                        .title(path.elementAt(indx + misPolilineas.elementAt(i).getPoints().size() - 1).getNombre())
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
             }
+            indx = indx + misPolilineas.elementAt(i).getPoints().size();
         }
-
-        marcadoresPiso.add(new MarkerOptions()
-                .position(new LatLng(path.elementAt(path.size()-1).getLatitud(),path.elementAt(path.size()-1).getLongitud()))
-                .title(path.elementAt(path.size()-1).getNombre())
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
 
         //Cargo las imagenes en el map
         cargarMapaImagnes(path);
@@ -392,8 +399,24 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
         miMapa.clear();
         miMapa.addMarker(miPosicion);
         miMapa.addPolyline(misPolilineas.elementAt(piso));
-        miMapa.addMarker(marcadoresPiso.elementAt(2*piso));
-        miMapa.addMarker(marcadoresPiso.elementAt(2*piso+1));
+
+        //Marcadores piso
+        int indx = 0;
+        for(int i=0;i<piso;i++){
+            if(misPolilineas.elementAt(i).getPoints().size() == 1){
+                indx = indx+1;
+            }
+            else{
+                indx = indx+2;
+            }
+        }
+
+        if(misPolilineas.elementAt(piso).getPoints().size() == 1){
+            miMapa.addMarker(marcadoresPiso.elementAt(indx));
+        }else{
+            miMapa.addMarker(marcadoresPiso.elementAt(indx));
+            miMapa.addMarker(marcadoresPiso.elementAt(indx+1));
+        }
 
         //Agrego los overlays
         if(misOverlays.size() > piso) {

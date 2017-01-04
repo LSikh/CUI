@@ -148,7 +148,7 @@ public class BaseDatos extends SQLiteOpenHelper {
                 "(" + 35 + " ,'-31.6399563','-60.6724081', 'FICH'," +  3 + ", 'Biblioteca'," + -1 + ")");
 
         sqLiteDatabase.execSQL("INSERT INTO Punto (id, latitud, longitud, edificio, piso, nombre, imagen) VALUES " +
-                "(" + 36 + " ,'-31.6399632','-60.6721938', 'FICH'," +  3 + ", 'Escaleras'," + -1 + ")");
+                "(" + 36 + " ,'-31.6399631','-60.6721937', 'FICH'," +  3 + ", 'Escaleras'," + -1 + ")");
 
         sqLiteDatabase.execSQL("INSERT INTO Punto (id, latitud, longitud, edificio, piso, nombre, imagen) VALUES " +
                 "(" + 37 + " ,'-31.6399614','-60.6720946', 'FICH'," +  3 + ", 'Aula 9'," + -1 + ")");
