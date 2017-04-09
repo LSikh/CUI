@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable-xxxhdpi/powered_by_google_light.png",
+        "source": "/home/lautaro/.android/build-cache/48ff7c1aa9447a37edbcc8b706efda8955a5df9e/output/res/drawable-xxxhdpi/powered_by_google_light.png"
+    },
+    {
+        "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable-xxxhdpi/places_ic_search.png",
+        "source": "/home/lautaro/.android/build-cache/48ff7c1aa9447a37edbcc8b706efda8955a5df9e/output/res/drawable-xxxhdpi/places_ic_search.png"
+    },
+    {
+        "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable-xxxhdpi/places_ic_clear.png",
+        "source": "/home/lautaro/.android/build-cache/48ff7c1aa9447a37edbcc8b706efda8955a5df9e/output/res/drawable-xxxhdpi/places_ic_clear.png"
+    },
+    {
+        "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable-xxxhdpi/powered_by_google_dark.png",
+        "source": "/home/lautaro/.android/build-cache/48ff7c1aa9447a37edbcc8b706efda8955a5df9e/output/res/drawable-xxxhdpi/powered_by_google_dark.png"
+    }
+]

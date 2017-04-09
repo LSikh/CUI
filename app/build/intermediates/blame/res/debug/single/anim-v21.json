@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/anim-v21/design_appbar_state_list_animator.xml",
+        "source": "/home/lautaro/.android/build-cache/db348902acb46248d7173f355cc368897b68dbfc/output/res/anim-v21/design_appbar_state_list_animator.xml"
+    },
+    {
+        "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/anim-v21/design_bottom_sheet_slide_in.xml",
+        "source": "/home/lautaro/.android/build-cache/db348902acb46248d7173f355cc368897b68dbfc/output/res/anim-v21/design_bottom_sheet_slide_in.xml"
+    },
+    {
+        "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/anim-v21/design_bottom_sheet_slide_out.xml",
+        "source": "/home/lautaro/.android/build-cache/db348902acb46248d7173f355cc368897b68dbfc/output/res/anim-v21/design_bottom_sheet_slide_out.xml"
+    }
+]
