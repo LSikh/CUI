@@ -242,7 +242,7 @@ public class BaseDatos extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("INSERT INTO Conexiones (idDesde, idHasta) VALUES (" + 27 + "," +  28 +")");
 
         sqLiteDatabase.execSQL("INSERT INTO Conexiones (idDesde, idHasta) VALUES (" + 28 + "," +  27 +")");
-        sqLiteDatabase.execSQL("INSERT INTO Conexiones (idDesde, idHasta) VALUES (" + 28 + "," +  19 +")");
+        sqLiteDatabase.execSQL("INSERT INTO Conexiones (idDesde, idHasta) VALUES (" + 28 + "," +  29 +")");
 
         sqLiteDatabase.execSQL("INSERT INTO Conexiones (idDesde, idHasta) VALUES (" + 29 + "," +  28 +")");
         sqLiteDatabase.execSQL("INSERT INTO Conexiones (idDesde, idHasta) VALUES (" + 29 + "," +  30 +")");
