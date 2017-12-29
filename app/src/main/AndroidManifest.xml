@@ -19,7 +19,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBIR6kyfuK6F_rLl7UCpK7DroGMca3L8Dc" />
+            android:value="@string/google_api_key" />
 
         <activity
             android:name=".MainActivity"
@@ -37,5 +37,6 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.MAPS_RECEIVE"/>
 
 </manifest>

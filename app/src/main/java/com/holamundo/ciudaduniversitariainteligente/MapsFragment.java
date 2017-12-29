@@ -1,12 +1,14 @@
 package com.holamundo.ciudaduniversitariainteligente;
 
+import android.Manifest;
 import android.annotation.TargetApi;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -24,8 +26,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.GroundOverlayOptions;
@@ -44,6 +46,7 @@ import java.util.Vector;
  */
 public class MapsFragment extends Fragment implements OnMapReadyCallback, SensorEventListener {
 
+
     public GoogleMap miMapa = null;
     private SensorManager miSensorManager;
     private MarkerOptions miPosicion = null;
@@ -54,15 +57,15 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
 
     private Vector<PolylineOptions> misPolilineas = new Vector<>(); //Vector de polilineas, cada elemento será una polilinea para un piso
     private Vector<MarkerOptions> marcadoresPiso = new Vector<>(); //Vector de marcadores por piso, dos marcadores por polilinea por piso
-                                                                   //uno en cada extremo
+    //uno en cada extremo
 
 
     private Vector<MarkerOptions> misMarcadores = new Vector<>();  //Vector de nodos para mostrar nodos sueltos (baños, bares, oficinas, etc)
 
     private Vector<Vector<GroundOverlayOptions>> misOverlays = new Vector<>(); //Vector de overLays, los planos de cada edificio
-                                                                               //El vector de afuera es para los pisos, cada elemento es un piso
-                                                                               //Cada elemento es un vector que tiene overlays de 1 o mas edificios
-                                                                               //Una polilinea puede pasar por mas de un edificio en un piso
+    //El vector de afuera es para los pisos, cada elemento es un piso
+    //Cada elemento es un vector que tiene overlays de 1 o mas edificios
+    //Una polilinea puede pasar por mas de un edificio en un piso
 
     private HashMaps miHashMaps = new HashMaps();
 
@@ -80,13 +83,19 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_map, container, false);
 
-        MapFragment fragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
-        fragment.getMapAsync(this);
+        SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
         //LocationManager
         LocationManager mlocManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         MyLocationListener mlocListener = new MyLocationListener();
         mlocListener.setMainActivity(this);
+
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            return null;
+        }
         mlocManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, (android.location.LocationListener) mlocListener);
 
         //SensorManager
@@ -453,14 +462,14 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
         }
     }
 
-    @Override
+/*    @Override
     public void onDestroyView() {
         super.onDestroyView();
-        FragmentManager fm = getActivity().getFragmentManager();
-        Fragment fragment = (fm.findFragmentById(R.id.map));
+
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        Fragment fragment = (SupportMapFragment) this.getChildFragmentManager().findFragmentById(R.id.map);
         FragmentTransaction ft = fm.beginTransaction();
-        ft.remove(fragment);
-        ft.commit();
-    }
+        ft.remove(fragment).commitAllowingStateLoss();
+    }*/
 }
 

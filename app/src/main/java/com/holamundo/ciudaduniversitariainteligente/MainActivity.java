@@ -1,7 +1,9 @@
 package com.holamundo.ciudaduniversitariainteligente;
 
 
-import android.app.FragmentManager;
+import android.Manifest;
+import android.os.Build;
+import android.support.v4.app.FragmentManager;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -13,7 +15,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,10 +25,19 @@ import java.util.Vector;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+
+    private static final String[] INITIAL_PERMS= new String[]{
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+    };
+
+    private static final int INITIAL_REQUEST=1337;
+
+
     /* Atributos de la clase*/
     private ArmaCamino oArmaCamino = null;
     private MapsFragment mapsFragment = null;
-    private FragmentManager fm = getFragmentManager();
+    private FragmentManager fm = getSupportFragmentManager();
     private FloatingActionButton qrBoton = null;
     private IntentIntegrator scanIntegrator = new IntentIntegrator(this);
     private ultimasBusquedas ultimasBusquedas = null;
@@ -46,6 +56,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //Instancio la base de datos
         CUdb = new BaseDatos(getApplicationContext(),"DBCUI", null, 1);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(INITIAL_PERMS, INITIAL_REQUEST);
+        }
 
         //Instancio los objetos para ArmaCamino y el MapFragment
         oArmaCamino = new ArmaCamino(this);
@@ -138,7 +152,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     //Switch segun en que opcion del menu desplegable se selecciona
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -149,8 +162,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 qrBoton.hide();
                 menu.clear();
                 Busqueda busqueda = new Busqueda();
-                fm.popBackStack();
-                fm.beginTransaction().replace(R.id.fragment_container, busqueda).addToBackStack(null).commit();
+                //fm.popBackStack();
+                fm.beginTransaction().replace(R.id.fragment_container, busqueda).commit();
+                //addToBackStack(null).
             }
 
         } else if (id == R.id.mapa_completo) {
@@ -165,17 +179,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             if (!(fm.findFragmentById(R.id.fragment_container) instanceof ultimasBusquedas)) {
                 qrBoton.hide();
                 menu.clear();
-                fm.popBackStack();
-                fm.beginTransaction().replace(R.id.fragment_container, ultimasBusquedas).addToBackStack(null).commit();
+                //fm.popBackStack();
+                fm.beginTransaction().replace(R.id.fragment_container, ultimasBusquedas).commit();
+                //addToBackStack(null).
             }
 
-        }/* else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }*/
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

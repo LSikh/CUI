@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /home/lautaro/CUI/app/src/main/AndroidManifest.xml:2:1-41:12
+ADDED from /home/lautaro/CUI/app/src/main/AndroidManifest.xml:2:1-42:12
 	package
 		ADDED from /home/lautaro/CUI/app/src/main/AndroidManifest.xml:3:5-59
 		INJECTED from /home/lautaro/CUI/app/src/main/AndroidManifest.xml
@@ -74,9 +74,9 @@ MERGED from [com.google.android.gms:play-services-basement:8.4.0] /home/lautaro/
 	android:name
 		ADDED from /home/lautaro/CUI/app/src/main/AndroidManifest.xml:17:13-58
 meta-data#com.google.android.geo.API_KEY
-ADDED from /home/lautaro/CUI/app/src/main/AndroidManifest.xml:20:9-22:71
+ADDED from /home/lautaro/CUI/app/src/main/AndroidManifest.xml:20:9-22:54
 	android:value
-		ADDED from /home/lautaro/CUI/app/src/main/AndroidManifest.xml:22:13-68
+		ADDED from /home/lautaro/CUI/app/src/main/AndroidManifest.xml:22:13-51
 	android:name
 		ADDED from /home/lautaro/CUI/app/src/main/AndroidManifest.xml:21:13-58
 activity#com.holamundo.ciudaduniversitariainteligente.MainActivity
@@ -119,6 +119,10 @@ uses-permission#android.permission.ACCESS_COARSE_LOCATION
 ADDED from /home/lautaro/CUI/app/src/main/AndroidManifest.xml:39:5-81
 	android:name
 		ADDED from /home/lautaro/CUI/app/src/main/AndroidManifest.xml:39:22-78
+uses-permission#android.permission.MAPS_RECEIVE
+ADDED from /home/lautaro/CUI/app/src/main/AndroidManifest.xml:40:5-70
+	android:name
+		ADDED from /home/lautaro/CUI/app/src/main/AndroidManifest.xml:40:22-68
 uses-sdk
 INJECTED from /home/lautaro/CUI/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 MERGED from [com.android.support:design:24.2.0] /home/lautaro/.android/build-cache/db348902acb46248d7173f355cc368897b68dbfc/output/AndroidManifest.xml:20:5-43

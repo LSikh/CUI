@@ -1,4 +1,7 @@
-#Sun Apr 09 12:18:02 ART 2017
-base.0=/home/lautaro/CUI/app/build/intermediates/transforms/dex/debug/folders/1000/1f/main
+#Fri Dec 29 12:50:01 ART 2017
+base.0=/home/lautaro/CUI/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_b3c9c85e323c11f0e8658ebd7fcb5bd09e3f3739
+renamed.1=classes2.dex
 renamed.0=classes.dex
-file.0=/home/lautaro/CUI/app/build/intermediates/transforms/dex/debug/folders/1000/1f/main/classes.dex
+file.1=/home/lautaro/CUI/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_e6167c8af854e063421f813dbc9e6ca9157b7f33/classes.dex
+base.1=/home/lautaro/CUI/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_e6167c8af854e063421f813dbc9e6ca9157b7f33
+file.0=/home/lautaro/CUI/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_b3c9c85e323c11f0e8658ebd7fcb5bd09e3f3739/classes.dex

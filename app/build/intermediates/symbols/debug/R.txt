@@ -1208,6 +1208,7 @@ int string common_signin_button_text_long 0x7f07002f
 int string create_calendar_message 0x7f070057
 int string create_calendar_title 0x7f070058
 int string decline 0x7f070059
+int string google_api_key 0x7f07005a
 int string mr_media_route_button_content_description 0x7f070030
 int string mr_media_route_chooser_searching 0x7f070031
 int string mr_media_route_chooser_title 0x7f070032
@@ -1219,14 +1220,14 @@ int string mr_media_route_controller_settings_description 0x7f070037
 int string mr_media_route_controller_stop 0x7f070038
 int string mr_system_route_name 0x7f070039
 int string mr_user_route_category_name 0x7f07003a
-int string navigation_drawer_close 0x7f07005a
-int string navigation_drawer_open 0x7f07005b
+int string navigation_drawer_close 0x7f07005b
+int string navigation_drawer_open 0x7f07005c
 int string place_autocomplete_clear_button 0x7f07003b
 int string place_autocomplete_search_hint 0x7f07003c
 int string search_menu_title 0x7f07003d
 int string status_bar_notification_info_overflow 0x7f07003e
-int string store_picture_message 0x7f07005c
-int string store_picture_title 0x7f07005d
+int string store_picture_message 0x7f07005d
+int string store_picture_title 0x7f07005e
 int string wallet_buy_button_place_holder 0x7f07003f
 int style AlertDialog_AppCompat 0x7f09008e
 int style AlertDialog_AppCompat_Light 0x7f09008f
