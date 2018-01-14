@@ -16,7 +16,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
-        sha1="08e6326df6b30242046655c233ace75a54391160">
+        sha1="9db59f09a531a394fdb65824d2e11c898ec51aae">
         <dex dex="/home/lautaro/CUI/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_b3c9c85e323c11f0e8658ebd7fcb5bd09e3f3739/classes.dex" />
     </item>
 

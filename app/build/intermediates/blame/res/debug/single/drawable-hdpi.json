@@ -4,12 +4,12 @@
         "source": "/home/lautaro/.android/build-cache/48ff7c1aa9447a37edbcc8b706efda8955a5df9e/output/res/drawable-hdpi/powered_by_google_light.png"
     },
     {
-        "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable-hdpi/ic_cast_light.png",
-        "source": "/home/lautaro/.android/build-cache/ccc5b1d6ca0625e121f796f57999e51aa00b70f9/output/res/drawable-hdpi/ic_cast_light.png"
-    },
-    {
         "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable-hdpi/ic_media_route_disabled_mono_dark.png",
         "source": "/home/lautaro/.android/build-cache/ccc5b1d6ca0625e121f796f57999e51aa00b70f9/output/res/drawable-hdpi/ic_media_route_disabled_mono_dark.png"
+    },
+    {
+        "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable-hdpi/ic_cast_light.png",
+        "source": "/home/lautaro/.android/build-cache/ccc5b1d6ca0625e121f796f57999e51aa00b70f9/output/res/drawable-hdpi/ic_cast_light.png"
     },
     {
         "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable-hdpi/common_google_signin_btn_text_dark_disabled.9.png",

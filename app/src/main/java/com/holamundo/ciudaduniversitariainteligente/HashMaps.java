@@ -26,10 +26,10 @@ public class HashMaps {
 
         //--------------------------------------------------------------------------------------------------------------------//
 
-        hashMapID.put("ed0_0", R.drawable.ed0_0);
-        hashMapID.put("ed0_1", R.drawable.ed0_1);
-        hashMapID.put("ed0_2", R.drawable.ed0_2);
-        hashMapID.put("ed0_3", R.drawable.ed0_3);
+        hashMapID.put("ed0_0", R.drawable.ed2_0);
+        hashMapID.put("ed0_1", R.drawable.ed2_1);
+        hashMapID.put("ed0_2", R.drawable.ed2_2);
+        hashMapID.put("ed0_3", R.drawable.ed2_3);
 
         //--------------------------------------------------------------------------------------------------------------------//
     }

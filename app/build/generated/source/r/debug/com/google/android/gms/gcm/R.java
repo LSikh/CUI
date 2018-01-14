@@ -155,14 +155,14 @@ public final class R {
         public static final int common_plus_signin_btn_text_light_focused = 0x7f02007c;
         public static final int common_plus_signin_btn_text_light_normal = 0x7f02007d;
         public static final int common_plus_signin_btn_text_light_pressed = 0x7f02007e;
-        public static final int ic_plusone_medium_off_client = 0x7f0200a0;
-        public static final int ic_plusone_small_off_client = 0x7f0200a1;
-        public static final int ic_plusone_standard_off_client = 0x7f0200a2;
-        public static final int ic_plusone_tall_off_client = 0x7f0200a3;
-        public static final int places_ic_clear = 0x7f0200b3;
-        public static final int places_ic_search = 0x7f0200b4;
-        public static final int powered_by_google_dark = 0x7f0200b6;
-        public static final int powered_by_google_light = 0x7f0200b7;
+        public static final int ic_plusone_medium_off_client = 0x7f0200a5;
+        public static final int ic_plusone_small_off_client = 0x7f0200a6;
+        public static final int ic_plusone_standard_off_client = 0x7f0200a7;
+        public static final int ic_plusone_tall_off_client = 0x7f0200a8;
+        public static final int places_ic_clear = 0x7f0200b8;
+        public static final int places_ic_search = 0x7f0200b9;
+        public static final int powered_by_google_dark = 0x7f0200bb;
+        public static final int powered_by_google_light = 0x7f0200bc;
     }
     public static final class id {
         public static final int adjust_height = 0x7f0d0038;

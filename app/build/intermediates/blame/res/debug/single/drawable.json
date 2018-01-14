@@ -28,16 +28,20 @@
         "source": "/home/lautaro/.android/build-cache/e9e267539180d99808404328323d7e857628b0f6/output/res/drawable/common_plus_signin_btn_text_light.xml"
     },
     {
-        "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable/common_plus_signin_btn_icon_dark.xml",
-        "source": "/home/lautaro/.android/build-cache/e9e267539180d99808404328323d7e857628b0f6/output/res/drawable/common_plus_signin_btn_icon_dark.xml"
-    },
-    {
         "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable/abc_item_background_holo_dark.xml",
         "source": "/home/lautaro/.android/build-cache/6b91b0db830214fdecb11d7abc1d31feaf21c0a1/output/res/drawable/abc_item_background_holo_dark.xml"
     },
     {
+        "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable/common_plus_signin_btn_icon_dark.xml",
+        "source": "/home/lautaro/.android/build-cache/e9e267539180d99808404328323d7e857628b0f6/output/res/drawable/common_plus_signin_btn_icon_dark.xml"
+    },
+    {
         "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable/common_plus_signin_btn_text_dark.xml",
         "source": "/home/lautaro/.android/build-cache/e9e267539180d99808404328323d7e857628b0f6/output/res/drawable/common_plus_signin_btn_text_dark.xml"
+    },
+    {
+        "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable/ed3_0.jpg",
+        "source": "/home/lautaro/CUI/app/src/main/res/drawable/ed3_0.jpg"
     },
     {
         "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable/abc_textfield_search_material.xml",
@@ -56,12 +60,20 @@
         "source": "/home/lautaro/CUI/app/src/main/res/drawable/unl_logo.bmp"
     },
     {
+        "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable/ed5_0.jpg",
+        "source": "/home/lautaro/CUI/app/src/main/res/drawable/ed5_0.jpg"
+    },
+    {
         "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable/cast_ic_notification_connecting.xml",
         "source": "/home/lautaro/.android/build-cache/f8efe42495870fc06b211bd665483c4d32cbbea0/output/res/drawable/cast_ic_notification_connecting.xml"
     },
     {
-        "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable/ed0_0.jpg",
-        "source": "/home/lautaro/CUI/app/src/main/res/drawable/ed0_0.jpg"
+        "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable/ed4_0.jpg",
+        "source": "/home/lautaro/CUI/app/src/main/res/drawable/ed4_0.jpg"
+    },
+    {
+        "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable/ed2_0.jpg",
+        "source": "/home/lautaro/CUI/app/src/main/res/drawable/ed2_0.jpg"
     },
     {
         "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable/mr_ic_pause_dark.xml",
@@ -86,6 +98,10 @@
     {
         "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable/abc_vector_test.xml",
         "source": "/home/lautaro/.android/build-cache/6b91b0db830214fdecb11d7abc1d31feaf21c0a1/output/res/drawable/abc_vector_test.xml"
+    },
+    {
+        "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable/ed6_0.jpg",
+        "source": "/home/lautaro/CUI/app/src/main/res/drawable/ed6_0.jpg"
     },
     {
         "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable/abc_ratingbar_indicator_material.xml",
@@ -184,12 +200,16 @@
         "source": "/home/lautaro/.android/build-cache/ccc5b1d6ca0625e121f796f57999e51aa00b70f9/output/res/drawable/mr_ic_media_route_mono_light.xml"
     },
     {
+        "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable/ed2_2.jpg",
+        "source": "/home/lautaro/CUI/app/src/main/res/drawable/ed2_2.jpg"
+    },
+    {
         "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable/side_nav_bar.xml",
         "source": "/home/lautaro/CUI/app/src/main/res/drawable/side_nav_bar.xml"
     },
     {
-        "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable/ed0_2.jpg",
-        "source": "/home/lautaro/CUI/app/src/main/res/drawable/ed0_2.jpg"
+        "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable/ed2_3.jpg",
+        "source": "/home/lautaro/CUI/app/src/main/res/drawable/ed2_3.jpg"
     },
     {
         "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_text_dark.xml",
@@ -206,14 +226,6 @@
     {
         "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable/abc_seekbar_tick_mark_material.xml",
         "source": "/home/lautaro/.android/build-cache/6b91b0db830214fdecb11d7abc1d31feaf21c0a1/output/res/drawable/abc_seekbar_tick_mark_material.xml"
-    },
-    {
-        "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable/ed0_3.jpg",
-        "source": "/home/lautaro/CUI/app/src/main/res/drawable/ed0_3.jpg"
-    },
-    {
-        "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable/ed0_1.jpg",
-        "source": "/home/lautaro/CUI/app/src/main/res/drawable/ed0_1.jpg"
     },
     {
         "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable/abc_seekbar_track_material.xml",
@@ -248,6 +260,10 @@
         "source": "/home/lautaro/.android/build-cache/e9e267539180d99808404328323d7e857628b0f6/output/res/drawable/common_google_signin_btn_icon_light.xml"
     },
     {
+        "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable/ed4_1.jpg",
+        "source": "/home/lautaro/CUI/app/src/main/res/drawable/ed4_1.jpg"
+    },
+    {
         "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_background_transition_holo_light.xml",
         "source": "/home/lautaro/.android/build-cache/6b91b0db830214fdecb11d7abc1d31feaf21c0a1/output/res/drawable/abc_list_selector_background_transition_holo_light.xml"
     },
@@ -258,6 +274,10 @@
     {
         "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_background_transition_holo_dark.xml",
         "source": "/home/lautaro/.android/build-cache/6b91b0db830214fdecb11d7abc1d31feaf21c0a1/output/res/drawable/abc_list_selector_background_transition_holo_dark.xml"
+    },
+    {
+        "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable/ed2_1.jpg",
+        "source": "/home/lautaro/CUI/app/src/main/res/drawable/ed2_1.jpg"
     },
     {
         "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable/abc_btn_colored_material.xml",

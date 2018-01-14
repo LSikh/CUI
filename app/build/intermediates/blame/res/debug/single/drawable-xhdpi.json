@@ -12,16 +12,16 @@
         "source": "/home/lautaro/.android/build-cache/e9e267539180d99808404328323d7e857628b0f6/output/res/drawable-xhdpi/common_plus_signin_btn_text_light_pressed.9.png"
     },
     {
-        "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable-xhdpi/common_google_signin_btn_icon_dark_normal.9.png",
-        "source": "/home/lautaro/.android/build-cache/e9e267539180d99808404328323d7e857628b0f6/output/res/drawable-xhdpi/common_google_signin_btn_icon_dark_normal.9.png"
+        "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable-xhdpi/ic_cast_disabled_light.png",
+        "source": "/home/lautaro/.android/build-cache/ccc5b1d6ca0625e121f796f57999e51aa00b70f9/output/res/drawable-xhdpi/ic_cast_disabled_light.png"
     },
     {
         "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable-xhdpi/common_plus_signin_btn_text_dark_normal.9.png",
         "source": "/home/lautaro/.android/build-cache/e9e267539180d99808404328323d7e857628b0f6/output/res/drawable-xhdpi/common_plus_signin_btn_text_dark_normal.9.png"
     },
     {
-        "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable-xhdpi/ic_cast_disabled_light.png",
-        "source": "/home/lautaro/.android/build-cache/ccc5b1d6ca0625e121f796f57999e51aa00b70f9/output/res/drawable-xhdpi/ic_cast_disabled_light.png"
+        "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable-xhdpi/common_google_signin_btn_icon_dark_normal.9.png",
+        "source": "/home/lautaro/.android/build-cache/e9e267539180d99808404328323d7e857628b0f6/output/res/drawable-xhdpi/common_google_signin_btn_icon_dark_normal.9.png"
     },
     {
         "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable-xhdpi/powered_by_google_light.png",
@@ -36,20 +36,20 @@
         "source": "/home/lautaro/.android/build-cache/e9e267539180d99808404328323d7e857628b0f6/output/res/drawable-xhdpi/common_google_signin_btn_icon_light_focused.9.png"
     },
     {
-        "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable-xhdpi/ic_cast_on_light.png",
-        "source": "/home/lautaro/.android/build-cache/ccc5b1d6ca0625e121f796f57999e51aa00b70f9/output/res/drawable-xhdpi/ic_cast_on_light.png"
-    },
-    {
         "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable-xhdpi/common_plus_signin_btn_text_light_disabled.9.png",
         "source": "/home/lautaro/.android/build-cache/e9e267539180d99808404328323d7e857628b0f6/output/res/drawable-xhdpi/common_plus_signin_btn_text_light_disabled.9.png"
     },
     {
-        "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable-xhdpi/common_google_signin_btn_text_dark_normal.9.png",
-        "source": "/home/lautaro/.android/build-cache/e9e267539180d99808404328323d7e857628b0f6/output/res/drawable-xhdpi/common_google_signin_btn_text_dark_normal.9.png"
+        "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable-xhdpi/ic_cast_on_light.png",
+        "source": "/home/lautaro/.android/build-cache/ccc5b1d6ca0625e121f796f57999e51aa00b70f9/output/res/drawable-xhdpi/ic_cast_on_light.png"
     },
     {
         "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable-xhdpi/common_google_signin_btn_text_light_pressed.9.png",
         "source": "/home/lautaro/.android/build-cache/e9e267539180d99808404328323d7e857628b0f6/output/res/drawable-xhdpi/common_google_signin_btn_text_light_pressed.9.png"
+    },
+    {
+        "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable-xhdpi/common_google_signin_btn_text_dark_normal.9.png",
+        "source": "/home/lautaro/.android/build-cache/e9e267539180d99808404328323d7e857628b0f6/output/res/drawable-xhdpi/common_google_signin_btn_text_dark_normal.9.png"
     },
     {
         "merged": "/home/lautaro/CUI/app/build/intermediates/res/merged/debug/drawable-xhdpi/common_plus_signin_btn_icon_light_focused.9.png",

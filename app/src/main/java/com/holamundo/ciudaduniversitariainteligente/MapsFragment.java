@@ -24,12 +24,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.GroundOverlay;
 import com.google.android.gms.maps.model.GroundOverlayOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
@@ -102,12 +104,14 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
         SensorManager mSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
         mSensorManager.registerListener((SensorEventListener) this, mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION), 1000000);
         this.miSensorManager = mSensorManager;
+
         return rootView;
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         miMapa = googleMap;
+
 
         //Esto es para armar el grafo, clickeando encima del overlay y viendo la lat y long del punto
         miMapa.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
@@ -117,6 +121,30 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
             }
         });
 
+        GroundOverlayOptions fich = new GroundOverlayOptions().
+                positionFromBounds(new LatLngBounds(new LatLng( -31.640064, -60.673090), new LatLng(-31.639671,  -60.671973))).
+                image(BitmapDescriptorFactory.fromResource(R.drawable.ed2_0));
+        GroundOverlayOptions fcm = new GroundOverlayOptions().
+                positionFromBounds(new LatLngBounds(new LatLng( -31.639886, -60.670827), new LatLng(-31.639312,  -60.670215))).
+                image(BitmapDescriptorFactory.fromResource(R.drawable.ed3_0));
+        GroundOverlayOptions nave = new GroundOverlayOptions().
+                positionFromBounds(new LatLngBounds(new LatLng( -31.639896, -60.671735), new LatLng(-31.639576,  -60.670991))).
+                image(BitmapDescriptorFactory.fromResource(R.drawable.ed4_0));
+        GroundOverlayOptions fadu = new GroundOverlayOptions().
+                positionFromBounds(new LatLngBounds(new LatLng( -31.640346, -60.673949), new LatLng(-31.639980,  -60.673311))).
+                image(BitmapDescriptorFactory.fromResource(R.drawable.ed5_0));
+        GroundOverlayOptions aulario = new GroundOverlayOptions().
+                positionFromBounds(new LatLngBounds(new LatLng( -31.640131, -60.674323), new LatLng(-31.639922, -60.674045))).
+                image(BitmapDescriptorFactory.fromResource(R.drawable.ed6_0));
+
+        miMapa.addGroundOverlay(fich);
+        miMapa.addGroundOverlay(fcm);
+        miMapa.addGroundOverlay(nave);
+        miMapa.addGroundOverlay(fadu);
+        miMapa.addGroundOverlay(aulario);
+
+        miMapa.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(-31.640578, -60.672906)));
+
         //Hago mi propia InfoWindow, para poder mostrar una imagen del nodo cuando hago click en el y ver el lugar que está señalado
         miMapa.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
             @Override
@@ -125,8 +153,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
             }
 
             @Override
-            public View getInfoContents(Marker marker) {
-                View v = getActivity().getLayoutInflater().inflate(R.layout.custom_infowindow,null);
+            public View getInfoContents(Marker marker) {                View v = getActivity().getLayoutInflater().inflate(R.layout.custom_infowindow,null);
                 ImageView imagen = (ImageView) v.findViewById(R.id.imageView);
                 TextView titulo = (TextView) v.findViewById(R.id.titulo);
 
@@ -207,7 +234,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
-        synchronized (this) {
+        /*synchronized (this) {
             switch (sensorEvent.sensor.getType()) {
                 case Sensor.TYPE_ORIENTATION:
                     float degree = Math.round(sensorEvent.values[0]);
@@ -220,7 +247,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
                         miMapa.moveCamera(CameraUpdateFactory.newCameraPosition(pos));
                     }
             }
-        }
+        }*/
     }
 
     @Override
