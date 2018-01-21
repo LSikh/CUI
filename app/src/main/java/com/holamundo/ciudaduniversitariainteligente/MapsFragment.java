@@ -196,13 +196,13 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
         }
 
         //Agrego los overlays
-        if(misOverlays.size()!=0) {
+        /*if(misOverlays.size()!=0) {
             for (int i = 0; i < misOverlays.elementAt(pisoActual).size(); i++) {
                 miMapa.addGroundOverlay(misOverlays.elementAt(pisoActual).elementAt(i));
             }
             miMapa.moveCamera(CameraUpdateFactory.newLatLngBounds(misOverlays.elementAt(pisoActual).elementAt(0).getBounds(),0));
-            miMapa.moveCamera(CameraUpdateFactory.zoomTo(18));
-        }
+            miMapa.moveCamera(CameraUpdateFactory.zoomTo(18)); 8 12 18 15
+        }*/
     }
 
     //Setters, getters y demas utilidades
@@ -260,7 +260,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
         miPosicionMarcador.remove();
         misPolilineas.clear();
         marcadoresPiso.clear();
-        misOverlays.clear();
+        //misOverlays.clear();
         miMapa.clear();
         miMapa.addMarker(miPosicion);
         setPisoActual(0);
