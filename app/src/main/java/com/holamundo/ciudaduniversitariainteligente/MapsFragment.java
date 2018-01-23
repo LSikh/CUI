@@ -121,9 +121,9 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
             }
         });
 
-        GroundOverlayOptions fich = new GroundOverlayOptions().
+        /*GroundOverlayOptions fich = new GroundOverlayOptions().
                 positionFromBounds(new LatLngBounds(new LatLng( -31.640064, -60.673090), new LatLng(-31.639671,  -60.671973))).
-                image(BitmapDescriptorFactory.fromResource(R.drawable.ed2_0));
+                image(BitmapDescriptorFactory.fromResource(R.drawable.ed2_1));
         GroundOverlayOptions fcm = new GroundOverlayOptions().
                 positionFromBounds(new LatLngBounds(new LatLng( -31.639886, -60.670827), new LatLng(-31.639312,  -60.670215))).
                 image(BitmapDescriptorFactory.fromResource(R.drawable.ed3_0));
@@ -141,7 +141,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
         miMapa.addGroundOverlay(fcm);
         miMapa.addGroundOverlay(nave);
         miMapa.addGroundOverlay(fadu);
-        miMapa.addGroundOverlay(aulario);
+        miMapa.addGroundOverlay(aulario);*/
 
         miMapa.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(-31.640578, -60.672906)));
 
@@ -196,13 +196,13 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
         }
 
         //Agrego los overlays
-        /*if(misOverlays.size()!=0) {
+        if(misOverlays.size()!=0) {
             for (int i = 0; i < misOverlays.elementAt(pisoActual).size(); i++) {
                 miMapa.addGroundOverlay(misOverlays.elementAt(pisoActual).elementAt(i));
             }
             miMapa.moveCamera(CameraUpdateFactory.newLatLngBounds(misOverlays.elementAt(pisoActual).elementAt(0).getBounds(),0));
-            miMapa.moveCamera(CameraUpdateFactory.zoomTo(18)); 8 12 18 15
-        }*/
+            miMapa.moveCamera(CameraUpdateFactory.zoomTo(18));
+        }
     }
 
     //Setters, getters y demas utilidades
