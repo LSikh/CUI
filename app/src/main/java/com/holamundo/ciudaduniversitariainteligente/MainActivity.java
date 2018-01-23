@@ -55,11 +55,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
         //Instancio la base de datos
-<<<<<<< HEAD
         CUdb = new BaseDatos(getApplicationContext(),"DBCUI", null, 5);
-=======
-        CUdb = new BaseDatos(getApplicationContext(),"DBCUI", null, 4);
->>>>>>> e6223408f6fa964bf0c840293aed8ef85e691e50
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(INITIAL_PERMS, INITIAL_REQUEST);
