@@ -78,6 +78,11 @@ public class BaseDatos extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(String.format(INSERT_PUNTO_TEMPLATE, 31, "-31.639847", "-60.672550", "FICH", 1, "Laboratorio 3 - 4", -1));
         sqLiteDatabase.execSQL(String.format(INSERT_PUNTO_TEMPLATE, 32, "-31.639956", "-60.672550", "FICH", 1, "Escalera", -1));
         sqLiteDatabase.execSQL(String.format(INSERT_PUNTO_TEMPLATE, 33, "-31.639956", "-60.672302", "FICH", 1, "Bedelia", -1));
+        sqLiteDatabase.execSQL(String.format(INSERT_PUNTO_TEMPLATE, 34, "-31.639954", "-60.672269", "FICH", 2, "Escalera", -1));
+        sqLiteDatabase.execSQL(String.format(INSERT_PUNTO_TEMPLATE, 35, "-31.639954", "-60.672109", "FICH", 2, "Laboratorio de Quimica", -1));
+        sqLiteDatabase.execSQL(String.format(INSERT_PUNTO_TEMPLATE, 36, "-31.639954", "-60.672088", "FICH", 2, "Secretaria Extensión", -1));
+        sqLiteDatabase.execSQL(String.format(INSERT_PUNTO_TEMPLATE, 37, "-31.639928", "-60.672088", "FICH", 2, "Aula Dibujo", -1));
+        sqLiteDatabase.execSQL(String.format(INSERT_PUNTO_TEMPLATE, 38, "-31.639928", "-60.672072", "FICH", 2, "Aula Baños", -1));
 
         sqLiteDatabase.execSQL(String.format(INSERT_CONEXION_TEMPLATE, 0, 1));
 
@@ -141,6 +146,7 @@ public class BaseDatos extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(String.format(INSERT_CONEXION_TEMPLATE, 20,3));
         sqLiteDatabase.execSQL(String.format(INSERT_CONEXION_TEMPLATE, 20,21));
         sqLiteDatabase.execSQL(String.format(INSERT_CONEXION_TEMPLATE, 20,33));
+        sqLiteDatabase.execSQL(String.format(INSERT_CONEXION_TEMPLATE, 20,34));
 
         sqLiteDatabase.execSQL(String.format(INSERT_CONEXION_TEMPLATE, 21,20));
         sqLiteDatabase.execSQL(String.format(INSERT_CONEXION_TEMPLATE, 21,22));
@@ -180,6 +186,20 @@ public class BaseDatos extends SQLiteOpenHelper {
 
         sqLiteDatabase.execSQL(String.format(INSERT_CONEXION_TEMPLATE, 33,32));
         sqLiteDatabase.execSQL(String.format(INSERT_CONEXION_TEMPLATE, 33,20));
+
+        sqLiteDatabase.execSQL(String.format(INSERT_CONEXION_TEMPLATE, 34,20));
+        sqLiteDatabase.execSQL(String.format(INSERT_CONEXION_TEMPLATE, 34,35));
+
+        sqLiteDatabase.execSQL(String.format(INSERT_CONEXION_TEMPLATE, 35,34));
+        sqLiteDatabase.execSQL(String.format(INSERT_CONEXION_TEMPLATE, 35,36));
+
+        sqLiteDatabase.execSQL(String.format(INSERT_CONEXION_TEMPLATE, 36,35));
+        sqLiteDatabase.execSQL(String.format(INSERT_CONEXION_TEMPLATE, 36,37));
+
+        sqLiteDatabase.execSQL(String.format(INSERT_CONEXION_TEMPLATE, 37,36));
+        sqLiteDatabase.execSQL(String.format(INSERT_CONEXION_TEMPLATE, 37,38));
+
+        sqLiteDatabase.execSQL(String.format(INSERT_CONEXION_TEMPLATE, 38,37));
 
     }
 }
