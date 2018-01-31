@@ -120,7 +120,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
                 Log.d("Prueba",latLng.latitude + ", " + latLng.longitude);
             }
         });
-        GroundOverlayOptions fich = new GroundOverlayOptions().
+        /*GroundOverlayOptions fich = new GroundOverlayOptions().
                 positionFromBounds(new LatLngBounds(new LatLng( -31.640064, -60.673090), new LatLng(-31.639671,  -60.671973))).
                 image(BitmapDescriptorFactory.fromResource(R.drawable.ed2_0));
         GroundOverlayOptions fcm = new GroundOverlayOptions().
@@ -140,7 +140,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
         miMapa.addGroundOverlay(fcm);
         miMapa.addGroundOverlay(nave);
         miMapa.addGroundOverlay(fadu);
-        miMapa.addGroundOverlay(aulario);
+        miMapa.addGroundOverlay(aulario);*/
 
         miMapa.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(-31.640578, -60.672906)));
 
