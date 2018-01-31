@@ -19,6 +19,8 @@ public class HashMaps {
         hashMapBounds.put("ed0_1", new LatLngBounds(new LatLng(-31.640064, -60.673090), new LatLng(-31.639671, -60.671973)));
         hashMapBounds.put("ed0_2", new LatLngBounds(new LatLng(-31.640064, -60.673090), new LatLng(-31.639671, -60.671973)));
         hashMapBounds.put("ed0_3", new LatLngBounds(new LatLng(-31.640064, -60.673090), new LatLng(-31.639671, -60.671973)));
+        hashMapBounds.put("ed4_0", new LatLngBounds(new LatLng(-31.639896, -60.671735), new LatLng(-31.639576, -60.670991)));
+        hashMapBounds.put("ed4_1", new LatLngBounds(new LatLng(-31.639896, -60.671735), new LatLng(-31.639576, -60.670991)));
 
         //Edificio 1 - FCM
         hashMapBounds.put("ed1_0", new LatLngBounds(new LatLng(-31.639872, -60.670817), new LatLng(-31.639313, -60.670216)));
@@ -30,6 +32,8 @@ public class HashMaps {
         hashMapID.put("ed0_1", R.drawable.ed2_1);
         hashMapID.put("ed0_2", R.drawable.ed2_2);
         hashMapID.put("ed0_3", R.drawable.ed2_3);
+        hashMapID.put("ed4_0", R.drawable.ed4_0);
+        hashMapID.put("ed4_1", R.drawable.ed4_1);
 
         //--------------------------------------------------------------------------------------------------------------------//
     }

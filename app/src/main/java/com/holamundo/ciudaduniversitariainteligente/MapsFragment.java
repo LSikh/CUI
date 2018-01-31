@@ -128,7 +128,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
                 image(BitmapDescriptorFactory.fromResource(R.drawable.ed3_0));
         GroundOverlayOptions nave = new GroundOverlayOptions().
                 positionFromBounds(new LatLngBounds(new LatLng( -31.639896, -60.671735), new LatLng(-31.639576,  -60.670991))).
-                image(BitmapDescriptorFactory.fromResource(R.drawable.ed4_0));
+                image(BitmapDescriptorFactory.fromResource(R.drawable.ed4_1));
         GroundOverlayOptions fadu = new GroundOverlayOptions().
                 positionFromBounds(new LatLngBounds(new LatLng( -31.640346, -60.673949), new LatLng(-31.639980,  -60.673311))).
                 image(BitmapDescriptorFactory.fromResource(R.drawable.ed5_0));
@@ -199,7 +199,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
             for (int i = 0; i < misOverlays.elementAt(pisoActual).size(); i++) {
                 miMapa.addGroundOverlay(misOverlays.elementAt(pisoActual).elementAt(i));
             }
-            miMapa.moveCamera(CameraUpdateFactory.newLatLngBounds(misOverlays.elementAt(pisoActual).elementAt(0).getBounds(),0));
+            //miMapa.moveCamera(CameraUpdateFactory.newLatLngBounds(misOverlays.elementAt(pisoActual).elementAt(0).getBounds(),0));
             miMapa.moveCamera(CameraUpdateFactory.zoomTo(18));
         }
     }
