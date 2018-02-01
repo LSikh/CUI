@@ -130,8 +130,7 @@ public class BaseDatos extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(String.format(INSERT_PUNTO_TEMPLATE, 83, "-31.639645", "-60.671578", "FICH", 0, "Escalera", -1));
         sqLiteDatabase.execSQL(String.format(INSERT_PUNTO_TEMPLATE, 84, "-31.639646", "-60.671577", "FICH", 1, "Escalera", -1));
         sqLiteDatabase.execSQL(String.format(INSERT_PUNTO_TEMPLATE, 85, "-31.639720", "-60.671577", "FICH", 1, "", -1));
-        sqLiteDatabase.execSQL(String.format(INSERT_PUNTO_TEMPLATE, 86, "-31.639720", "-60.671650", "FICH", 1, "Aula Laboratorio 5", -1));
-
+        sqLiteDatabase.execSQL(String.format(INSERT_PUNTO_TEMPLATE, 86, "-31.639720", "-60.671650", "FICH", 1, "Aula Laboratorio 5", -1));;
 
         sqLiteDatabase.execSQL(String.format(INSERT_CONEXION_TEMPLATE, 0, 1));
 

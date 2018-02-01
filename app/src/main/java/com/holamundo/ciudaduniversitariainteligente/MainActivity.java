@@ -26,12 +26,12 @@ import java.util.Vector;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 
-    private static final String[] INITIAL_PERMS= new String[]{
+    private static final String[] INITIAL_PERMS = new String[]{
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION
     };
 
-    private static final int INITIAL_REQUEST=1337;
+    private static final int INITIAL_REQUEST = 1337;
 
 
     /* Atributos de la clase*/
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
         //Instancio la base de datos
-        CUdb = new BaseDatos(getApplicationContext(),"DBCUI", null, 2);
+        CUdb = new BaseDatos(getApplicationContext(), "DBCUI", null, 2);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(INITIAL_PERMS, INITIAL_REQUEST);
@@ -64,7 +64,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //Instancio los objetos para ArmaCamino y el MapFragment
         oArmaCamino = new ArmaCamino(this);
         mapsFragment = new MapsFragment();
-        ultimasBusquedas = new ultimasBusquedas();  ultimasBusquedas.setMainActivity(this);
+        ultimasBusquedas = new ultimasBusquedas();
+        ultimasBusquedas.setMainActivity(this);
 
         //Agrego Nodos a mi vector de nodos en oArmaCamino
         cargaNodos();
@@ -89,8 +90,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
         //Cambio el fragment por defecto por mi mapFragment
-        fm.beginTransaction().replace(R.id.fragment_container, mapsFragment).commit();
-
+        fm.beginTransaction().replace(R.id.fragment_container, mapsFragment).addToBackStack(null).commit();
     }
 
     @Override
@@ -99,17 +99,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            if(fm.getBackStackEntryCount() == 0){
-                super.onBackPressed();
-            }
-            else{
-                if(fm.findFragmentById(R.id.fragment_container) instanceof MapsFragment){
-                    finish();
-                }
-                else {
-                    fm.popBackStack();
-                    mapsFragment.limpiarMapa();
-                }
+            if (fm.findFragmentById(R.id.fragment_container) instanceof MapsFragment) {
+                finish();
+            } else {
+                fm.popBackStack();
             }
         }
     }
@@ -123,15 +116,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        for(int i=0;i<menu.size();i++){
-            if(menu.getItem(i).getTitle().charAt(0) == '*'){
+        for (int i = 0; i < menu.size(); i++) {
+            if (menu.getItem(i).getTitle().charAt(0) == '*') {
                 menu.getItem(i).setTitle(menu.getItem(i).getTitle().toString().substring(1));
-                item.setTitle("*"+item.getTitle());
+                item.setTitle("*" + item.getTitle());
                 break;
             }
         }
         /*Si estoy mostrando una polilinea, la cambio segun la opcion de piso seleccionada*/
-        if(mapsFragment.modoPolilinea()) {
+        if (mapsFragment.modoPolilinea()) {
             if (item.toString().contains("Baja")) {
                 mapsFragment.cambiarPolilinea(0);
                 return true;
@@ -140,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         }
         /*Esto es si estoy mostrando nodos*/
-        else{
+        else {
             if (item.toString().contains("Baja")) {
                 mapsFragment.cambiarNodos(0);
                 return true;
@@ -163,8 +156,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 menu.clear();
                 Busqueda busqueda = new Busqueda();
                 //fm.popBackStack();
-                fm.beginTransaction().replace(R.id.fragment_container, busqueda).commit();
-                //addToBackStack(null).
+                fm.beginTransaction().replace(R.id.fragment_container, busqueda).addToBackStack(null).commit();
             }
 
         } else if (id == R.id.mapa_completo) {
@@ -172,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             menu.clear();
             if (!(fm.findFragmentById(R.id.fragment_container) instanceof MapsFragment)) {
                 qrBoton.show();
-                fm.beginTransaction().replace(R.id.fragment_container, mapsFragment).commit();
+                fm.beginTransaction().replace(R.id.fragment_container, mapsFragment).addToBackStack(null).commit();
             }
 
         } else if (id == R.id.ultimas) {
@@ -180,8 +172,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 qrBoton.hide();
                 menu.clear();
                 //fm.popBackStack();
-                fm.beginTransaction().replace(R.id.fragment_container, ultimasBusquedas).commit();
-                //addToBackStack(null).
+                fm.beginTransaction().replace(R.id.fragment_container, ultimasBusquedas).addToBackStack(null).commit();
             }
 
         }
@@ -204,23 +195,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mapsFragment.mostrarNodos(oArmaCamino.nodosMapa(Nombre));
             menu.clear();
             menu.add("Planta Baja");
-            for(int i=1;i<mapsFragment.getCantPisos();i++){
-                menu.add("Piso "+i);
+            for (int i = 1; i < mapsFragment.getCantPisos(); i++) {
+                menu.add("Piso " + i);
             }
             menu.getItem(mapsFragment.getPisoActual()).setTitle("*" + menu.getItem(mapsFragment.getPisoActual()).getTitle());
             getMenuInflater().inflate(R.menu.main, menu);
         } else {
-            oArmaCamino.setPuntoMasCercano(mapsFragment.getPosicion(),mapsFragment.getPisoActual());
+            oArmaCamino.setPuntoMasCercano(mapsFragment.getPosicion(), mapsFragment.getPisoActual());
             mapsFragment.dibujaCamino(oArmaCamino.camino(Edificio, Nombre));
             menu.clear();
             menu.add("Planta Baja");
-            for(int i=1;i<mapsFragment.getCantPisos();i++){
-                menu.add("Piso "+i);
+            for (int i = 1; i < mapsFragment.getCantPisos(); i++) {
+                menu.add("Piso " + i);
             }
             menu.getItem(mapsFragment.getPisoActual()).setTitle("*" + menu.getItem(mapsFragment.getPisoActual()).getTitle());
             getMenuInflater().inflate(R.menu.main, menu);
             String texto = "Su objetivo está en " + oArmaCamino.getPisoObjetivo();
-            Toast.makeText(getApplicationContext(),texto,Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), texto, Toast.LENGTH_LONG).show();
         }
         fm.beginTransaction().replace(R.id.fragment_container, mapsFragment).addToBackStack(null).commit();
         qrBoton.show();
@@ -236,22 +227,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void cargaNodos() {
         Vector<Punto> puntos = new Vector<>();
         SQLiteDatabase db1 = CUdb.getReadableDatabase();
-        Cursor c = db1.rawQuery("SELECT *  FROM Punto",null);
+        Cursor c = db1.rawQuery("SELECT *  FROM Punto", null);
         c.moveToFirst();
 
         //Creo y agrego los nodos
-        if(c.getCount() > 0) {
+        if (c.getCount() > 0) {
             do {
-                Punto oPunto = new Punto(c.getInt(0),Double.parseDouble(c.getString(1)),Double.parseDouble(c.getString(2)),c.getString(3),c.getInt(4),c.getString(5),c.getInt(6));
+                Punto oPunto = new Punto(c.getInt(0), Double.parseDouble(c.getString(1)), Double.parseDouble(c.getString(2)), c.getString(3), c.getInt(4), c.getString(5), c.getInt(6));
                 puntos.add(oPunto);
             } while (c.moveToNext());
         }
 
         //Genero las conexiones
-        for(int i = 0;i<puntos.size();i++){
+        for (int i = 0; i < puntos.size(); i++) {
             Cursor d = db1.rawQuery("SELECT idHasta FROM Conexiones WHERE idDesde = " + puntos.elementAt(i).getId(), null);
             d.moveToFirst();
-            if(d.getCount() > 0) {
+            if (d.getCount() > 0) {
                 do {
                     puntos.elementAt(i).addVecino(puntos.elementAt(d.getInt(0)));
                 } while (d.moveToNext());
@@ -271,12 +262,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             //Desplegamos en pantalla el contenido del código de barra scaneado
             String scanContent = scanningResult.getContents();
             mapsFragment.setLat(Double.parseDouble(scanContent.toString().substring(0, (scanContent.toString().indexOf(',')))));
-            mapsFragment.setLon(Double.parseDouble(scanContent.toString().substring((scanContent.toString().indexOf(',')) + 1, scanContent.length()-2)));
-            mapsFragment.setPisoActual(Integer.parseInt(scanContent.toString().substring(scanContent.toString().length()-1)));
+            mapsFragment.setLon(Double.parseDouble(scanContent.toString().substring((scanContent.toString().indexOf(',')) + 1, scanContent.length() - 2)));
+            mapsFragment.setPisoActual(Integer.parseInt(scanContent.toString().substring(scanContent.toString().length() - 1)));
             mapsFragment.actualizaPosicion();
 
             //Actualizo el * del menu de pisos cuando cambio el piso por QR
-            if(mapsFragment.getPisoActual()+1 <= mapsFragment.getCantPisos()) {
+            if (mapsFragment.getPisoActual() + 1 <= mapsFragment.getCantPisos()) {
                 for (int i = 0; i < menu.size(); i++) {
                     if (menu.getItem(i).getTitle().charAt(0) == '*') {
                         menu.getItem(i).setTitle(menu.getItem(i).getTitle().toString().substring(1));

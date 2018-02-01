@@ -22,6 +22,12 @@ public class HashMaps {
         hashMapBounds.put("ed4_0", new LatLngBounds(new LatLng(-31.639896, -60.671735), new LatLng(-31.639576, -60.670991)));
         hashMapBounds.put("ed4_1", new LatLngBounds(new LatLng(-31.639896, -60.671735), new LatLng(-31.639576, -60.670991)));
 
+        hashMapBounds.put("ed5_0", new LatLngBounds(new LatLng(-31.639896, -60.671735), new LatLng(-31.639576, -60.670991)));
+        hashMapBounds.put("ed5_1", new LatLngBounds(new LatLng(-31.639896, -60.671735), new LatLng(-31.639576, -60.670991)));
+        hashMapBounds.put("ed5_2", new LatLngBounds(new LatLng(-31.639896, -60.671735), new LatLng(-31.639576, -60.670991)));
+        hashMapBounds.put("ed5_3", new LatLngBounds(new LatLng(-31.639896, -60.671735), new LatLng(-31.639576, -60.670991)));
+        hashMapBounds.put("ed5_4", new LatLngBounds(new LatLng(-31.639896, -60.671735), new LatLng(-31.639576, -60.670991)));
+
         //Edificio 1 - FCM
         hashMapBounds.put("ed1_0", new LatLngBounds(new LatLng(-31.639872, -60.670817), new LatLng(-31.639313, -60.670216)));
 

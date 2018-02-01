@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,9 +83,20 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
     private double lat;
     private double lon;
 
+    private static View view;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_map, container, false);
+        if (view != null) {
+            ViewGroup parent = (ViewGroup) view.getParent();
+            if (parent != null)
+                parent.removeView(view);
+        }
+        try {
+            view = inflater.inflate(R.layout.fragment_map, container, false);
+        } catch (InflateException e) {
+
+        }
 
         SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -105,7 +118,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
         mSensorManager.registerListener((SensorEventListener) this, mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION), 1000000);
         this.miSensorManager = mSensorManager;
 
-        return rootView;
+        return view;
     }
 
     @Override
@@ -117,30 +130,30 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
         miMapa.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
-                Log.d("Prueba",latLng.latitude + ", " + latLng.longitude);
+                Log.d("Prueba", latLng.latitude + ", " + latLng.longitude);
             }
         });
-        /*GroundOverlayOptions fich = new GroundOverlayOptions().
-                positionFromBounds(new LatLngBounds(new LatLng( -31.640064, -60.673090), new LatLng(-31.639671,  -60.671973))).
+        GroundOverlayOptions fich = new GroundOverlayOptions().
+                positionFromBounds(new LatLngBounds(new LatLng(-31.640064, -60.673090), new LatLng(-31.639671, -60.671973))).
                 image(BitmapDescriptorFactory.fromResource(R.drawable.ed2_0));
         GroundOverlayOptions fcm = new GroundOverlayOptions().
-                positionFromBounds(new LatLngBounds(new LatLng( -31.639886, -60.670827), new LatLng(-31.639312,  -60.670215))).
+                positionFromBounds(new LatLngBounds(new LatLng(-31.639886, -60.670827), new LatLng(-31.639312, -60.670215))).
                 image(BitmapDescriptorFactory.fromResource(R.drawable.ed3_0));
         GroundOverlayOptions nave = new GroundOverlayOptions().
-                positionFromBounds(new LatLngBounds(new LatLng( -31.639896, -60.671735), new LatLng(-31.639576,  -60.670991))).
-                image(BitmapDescriptorFactory.fromResource(R.drawable.ed4_1));
+                positionFromBounds(new LatLngBounds(new LatLng(-31.639896, -60.671735), new LatLng(-31.639576, -60.670991))).
+                image(BitmapDescriptorFactory.fromResource(R.drawable.ed4_0));
         GroundOverlayOptions fadu = new GroundOverlayOptions().
-                positionFromBounds(new LatLngBounds(new LatLng( -31.640346, -60.673949), new LatLng(-31.639980,  -60.673311))).
+                positionFromBounds(new LatLngBounds(new LatLng(-31.640346, -60.673949), new LatLng(-31.639980, -60.673311))).
                 image(BitmapDescriptorFactory.fromResource(R.drawable.ed5_0));
         GroundOverlayOptions aulario = new GroundOverlayOptions().
-                positionFromBounds(new LatLngBounds(new LatLng( -31.640131, -60.674323), new LatLng(-31.639922, -60.674045))).
+                positionFromBounds(new LatLngBounds(new LatLng(-31.640131, -60.674323), new LatLng(-31.639922, -60.674045))).
                 image(BitmapDescriptorFactory.fromResource(R.drawable.ed6_0));
 
         miMapa.addGroundOverlay(fich);
         miMapa.addGroundOverlay(fcm);
         miMapa.addGroundOverlay(nave);
         miMapa.addGroundOverlay(fadu);
-        miMapa.addGroundOverlay(aulario);*/
+        miMapa.addGroundOverlay(aulario);
 
         miMapa.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(-31.640578, -60.672906)));
 
@@ -152,12 +165,13 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
             }
 
             @Override
-            public View getInfoContents(Marker marker) {                View v = getActivity().getLayoutInflater().inflate(R.layout.custom_infowindow,null);
+            public View getInfoContents(Marker marker) {
+                View v = getActivity().getLayoutInflater().inflate(R.layout.custom_infowindow, null);
                 ImageView imagen = (ImageView) v.findViewById(R.id.imageView);
                 TextView titulo = (TextView) v.findViewById(R.id.titulo);
 
                 //Busco en el mapa por ese punto, si tiene imagen la agrego
-                if(hashMapImagenes.containsKey(marker.getPosition())) {
+                if (hashMapImagenes.containsKey(marker.getPosition())) {
                     imagen.setImageResource(hashMapImagenes.get(marker.getPosition()));
                 }
 
@@ -165,7 +179,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
                 return v;
             }
         });
-        
+
         //Muevo la camara hasta mi posicion y agrego un marcador allí
         LatLng position = new LatLng(this.lat, this.lon);
         miMapa.moveCamera(CameraUpdateFactory.newLatLng(position));
@@ -176,26 +190,25 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
         //Agrego los marcadores adicionales (Edificios, baños, bares,etc), si los hay
         for (int i = 0; i < misMarcadores.size(); i++) {
             String texto;
-            if(pisoActual == 0){
+            if (pisoActual == 0) {
                 texto = "Planta Baja";
-            }
-            else{
+            } else {
                 texto = "Piso " + pisoActual;
             }
-            if(misMarcadores.elementAt(i).getTitle().contains(texto)) {
+            if (misMarcadores.elementAt(i).getTitle().contains(texto)) {
                 miMapa.addMarker(misMarcadores.elementAt(i));
             }
         }
 
         //Agrego polilinea si la hay
-        if(misPolilineas.size() != 0){
+        if (misPolilineas.size() != 0) {
             miMapa.addPolyline(misPolilineas.elementAt(pisoActual));
-            miMapa.addMarker(marcadoresPiso.elementAt(2*pisoActual));
-            miMapa.addMarker(marcadoresPiso.elementAt(2*pisoActual+1));
+            miMapa.addMarker(marcadoresPiso.elementAt(2 * pisoActual));
+            miMapa.addMarker(marcadoresPiso.elementAt(2 * pisoActual + 1));
         }
 
         //Agrego los overlays
-        if(misOverlays.size()!=0) {
+        if (misOverlays.size() != 0) {
             for (int i = 0; i < misOverlays.elementAt(pisoActual).size(); i++) {
                 miMapa.addGroundOverlay(misOverlays.elementAt(pisoActual).elementAt(i));
             }
@@ -221,15 +234,21 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
         return this.lon;
     }
 
-    public int getCantPisos(){
+    public int getCantPisos() {
         return cantPisos;
     }
 
-    public void setPisoActual(int p){this.pisoActual = p;}
+    public void setPisoActual(int p) {
+        this.pisoActual = p;
+    }
 
-    public int getPisoActual(){return pisoActual;}
+    public int getPisoActual() {
+        return pisoActual;
+    }
 
-    public boolean modoPolilinea(){return !misPolilineas.isEmpty();}
+    public boolean modoPolilinea() {
+        return !misPolilineas.isEmpty();
+    }
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
@@ -273,20 +292,18 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
         miPosicion.position(position);
         miPosicionMarcador.remove();
         miPosicionMarcador = miMapa.addMarker(miPosicion);
-        
-        if(!misPolilineas.isEmpty() && pisoActual+1<=misPolilineas.size()){
+
+        if (!misPolilineas.isEmpty() && pisoActual + 1 <= misPolilineas.size()) {
             cambiarPolilinea(pisoActual);
+        } else if (pisoActual + 1 > misPolilineas.size() && !misPolilineas.isEmpty()) {
+            Toast.makeText(getActivity().getApplicationContext(), "Su objetivo está en un piso inferior", Toast.LENGTH_LONG).show();
         }
-        else if(pisoActual+1 > misPolilineas.size() && !misPolilineas.isEmpty()){
-            Toast.makeText(getActivity().getApplicationContext(),"Su objetivo está en un piso inferior",Toast.LENGTH_LONG).show();
-        }
-        if(!misMarcadores.isEmpty() && pisoActual+1<=misMarcadores.size()){
+        if (!misMarcadores.isEmpty() && pisoActual + 1 <= misMarcadores.size()) {
             cambiarNodos(pisoActual);
+        } else if (pisoActual + 1 > misMarcadores.size() && !misMarcadores.isEmpty()) {
+            Toast.makeText(getActivity().getApplicationContext(), "Su objetivo está en un piso inferior", Toast.LENGTH_LONG).show();
         }
-        else if(pisoActual+1 > misMarcadores.size() && !misMarcadores.isEmpty()){
-            Toast.makeText(getActivity().getApplicationContext(),"Su objetivo está en un piso inferior",Toast.LENGTH_LONG).show();
-        }
-        
+
     }
 
     //Obtengo mi latitud y longitud en un objeto LatLng
@@ -301,17 +318,17 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
         marcadoresPiso.clear();
         cantPisos = 0;
         Vector<String> edificios = new Vector<>();
-        
+
         //Veo cuantos pisos hay
-        for(int i=0;i<path.size();i++){
-            if(path.elementAt(i).getPiso() > cantPisos){
+        for (int i = 0; i < path.size(); i++) {
+            if (path.elementAt(i).getPiso() > cantPisos) {
                 cantPisos = path.elementAt(i).getPiso();
             }
         }
 
         //Creo las polilineas y overlays que voy a usar
-        cantPisos = cantPisos +1;
-        for(int i=0;i<cantPisos;i++){
+        cantPisos = cantPisos + 1;
+        for (int i = 0; i < cantPisos; i++) {
             PolylineOptions p = new PolylineOptions().width(5).color(Color.RED);
             Vector<GroundOverlayOptions> g = new Vector<>();
             misPolilineas.add(p);
@@ -319,12 +336,12 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
         }
 
         //Agrego puntos a las polilineas segun piso e identifico por que edificios y pisos pasa mi polilinea
-        for(int i=0;i<path.size();i++) {
+        for (int i = 0; i < path.size(); i++) {
             misPolilineas.elementAt(path.elementAt(i).getPiso()).add(new LatLng(path.elementAt(i).getLatitud(), path.elementAt(i).getLongitud()));
-            for(int j=0;j<cantidad_edificios;j++){
+            for (int j = 0; j < cantidad_edificios; j++) {
                 //Veo si ese marcador está dentro de algun edificio con el mapa y la funcion dentroDeLimites
                 //Tratar de optimizar esto
-                if(hashMapBounds.containsKey("ed" + j + "_" + path.elementAt(i).getPiso())){
+                if (hashMapBounds.containsKey("ed" + j + "_" + path.elementAt(i).getPiso())) {
                     if (dentroDeLimites(new LatLng(path.elementAt(i).getLatitud(), path.elementAt(i).getLongitud()), hashMapBounds.get("ed" + j + "_" + path.elementAt(i).getPiso()))) {
                         if (!edificios.contains("ed" + j + "_" + path.elementAt(i).getPiso())) {
                             edificios.add("ed" + j + "_" + path.elementAt(i).getPiso());
@@ -335,8 +352,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
         }
 
         //Agrego los overlays a mi vector
-        for(int i=0;i<edificios.size();i++){
-            if(hashMapID.containsKey(edificios.elementAt(i))) {
+        for (int i = 0; i < edificios.size(); i++) {
+            if (hashMapID.containsKey(edificios.elementAt(i))) {
                 misOverlays.elementAt(Integer.parseInt(edificios.elementAt(i).substring(edificios.elementAt(i).indexOf("_") + 1)))
                         .add(new GroundOverlayOptions()
                                 .positionFromBounds(hashMapBounds.get(edificios.elementAt(i)))
@@ -346,26 +363,26 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
 
         //Busco cuales marcadores por piso voy a tener
         marcadoresPiso.add(new MarkerOptions()
-                .position(new LatLng(path.elementAt(0).getLatitud(),path.elementAt(0).getLongitud()))
+                .position(new LatLng(path.elementAt(0).getLatitud(), path.elementAt(0).getLongitud()))
                 .title(path.elementAt(0).getNombre())
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
 
-        for(int i=1;i<path.size()-1;i++){
-            if(path.elementAt(i).getPiso() != path.elementAt(i+1).getPiso()){
+        for (int i = 1; i < path.size() - 1; i++) {
+            if (path.elementAt(i).getPiso() != path.elementAt(i + 1).getPiso()) {
                 marcadoresPiso.add(new MarkerOptions()
-                        .position(new LatLng(path.elementAt(i).getLatitud(),path.elementAt(i).getLongitud()))
+                        .position(new LatLng(path.elementAt(i).getLatitud(), path.elementAt(i).getLongitud()))
                         .title(path.elementAt(i).getNombre())
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
                 marcadoresPiso.add(new MarkerOptions()
-                        .position(new LatLng(path.elementAt(i+1).getLatitud(),path.elementAt(i+1).getLongitud()))
-                        .title(path.elementAt(i+1).getNombre())
+                        .position(new LatLng(path.elementAt(i + 1).getLatitud(), path.elementAt(i + 1).getLongitud()))
+                        .title(path.elementAt(i + 1).getNombre())
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
             }
         }
 
         marcadoresPiso.add(new MarkerOptions()
-                .position(new LatLng(path.elementAt(path.size()-1).getLatitud(),path.elementAt(path.size()-1).getLongitud()))
-                .title(path.elementAt(path.size()-1).getNombre())
+                .position(new LatLng(path.elementAt(path.size() - 1).getLatitud(), path.elementAt(path.size() - 1).getLongitud()))
+                .title(path.elementAt(path.size() - 1).getNombre())
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
 
         //Cargo las imagenes en el map
@@ -381,22 +398,21 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
         cantPisos = 0;
         for (int i = 0; i < nodos.size(); i++) {
             String texto;
-            if(nodos.elementAt(i).getPiso() ==0){
+            if (nodos.elementAt(i).getPiso() == 0) {
                 texto = "Planta Baja";
-            }
-            else{
+            } else {
                 texto = "Piso " + nodos.elementAt(i).getPiso();
             }
             //Cuento la cantidad de pisos en donde encontre lo que busco
-            if(nodos.elementAt(i).getPiso() > cantPisos){
+            if (nodos.elementAt(i).getPiso() > cantPisos) {
                 cantPisos = nodos.elementAt(i).getPiso();
             }
 
             //Agrego los marcadores
             misMarcadores.add(new MarkerOptions().position(new LatLng(nodos.elementAt(i).getLatitud(), nodos.elementAt(i).getLongitud())).title(nodos.elementAt(i).getNombre() + " - " + texto).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-            for(int j=0;j<cantidad_edificios;j++){
+            for (int j = 0; j < cantidad_edificios; j++) {
                 //Veo si ese marcador está dentro de algun edificio
-                if(hashMapBounds.containsKey("ed" + j + "_" + nodos.elementAt(i).getPiso())) {
+                if (hashMapBounds.containsKey("ed" + j + "_" + nodos.elementAt(i).getPiso())) {
                     if (dentroDeLimites(new LatLng(nodos.elementAt(i).getLatitud(), nodos.elementAt(i).getLongitud()), hashMapBounds.get("ed" + j + "_" + nodos.elementAt(i).getPiso()))) {
                         if (!edificios.contains("ed" + j + "_" + nodos.elementAt(i).getPiso())) {
                             edificios.add("ed" + j + "_" + nodos.elementAt(i).getPiso());
@@ -407,15 +423,15 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
         }
 
         //Creo las polilineas y overlays que voy a usar
-        cantPisos = cantPisos +1;
-        for(int i=0;i<cantPisos;i++){
+        cantPisos = cantPisos + 1;
+        for (int i = 0; i < cantPisos; i++) {
             Vector<GroundOverlayOptions> g = new Vector<>();
             misOverlays.add(g);
         }
 
         //Agrego los overlays a mi vector
-        for(int i=0;i<edificios.size();i++){
-            if(hashMapID.containsKey(edificios.elementAt(i))) {
+        for (int i = 0; i < edificios.size(); i++) {
+            if (hashMapID.containsKey(edificios.elementAt(i))) {
                 misOverlays.elementAt(Integer.parseInt(edificios.elementAt(i).substring(edificios.elementAt(i).indexOf("_") + 1)))
                         .add(new GroundOverlayOptions()
                                 .positionFromBounds(hashMapBounds.get(edificios.elementAt(i)))
@@ -427,15 +443,15 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
         cargarMapaImagnes(nodos);
     }
 
-    public void cambiarPolilinea(int piso){
+    public void cambiarPolilinea(int piso) {
         miMapa.clear();
         miMapa.addMarker(miPosicion);
         miMapa.addPolyline(misPolilineas.elementAt(piso));
-        miMapa.addMarker(marcadoresPiso.elementAt(2*piso));
-        miMapa.addMarker(marcadoresPiso.elementAt(2*piso+1));
+        miMapa.addMarker(marcadoresPiso.elementAt(2 * piso));
+        miMapa.addMarker(marcadoresPiso.elementAt(2 * piso + 1));
 
         //Agrego los overlays
-        if(misOverlays.size() > piso) {
+        if (misOverlays.size() > piso) {
             for (int i = 0; i < misOverlays.elementAt(piso).size(); i++) {
                 miMapa.addGroundOverlay(misOverlays.elementAt(piso).elementAt(i));
             }
@@ -443,24 +459,23 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
     }
 
     //Funcion para actualizar los nodos según el piso que se quiera ver
-    public void cambiarNodos(int piso){
+    public void cambiarNodos(int piso) {
         miMapa.clear();
         miMapa.addMarker(miPosicion);
-        for(int i=0;i<misMarcadores.size();i++){
-            if(piso == 0){
-                if(misMarcadores.elementAt(i).getTitle().contains("Planta Baja")){
+        for (int i = 0; i < misMarcadores.size(); i++) {
+            if (piso == 0) {
+                if (misMarcadores.elementAt(i).getTitle().contains("Planta Baja")) {
                     miMapa.addMarker(misMarcadores.elementAt(i));
                 }
-            }
-            else{
-                if(misMarcadores.elementAt(i).getTitle().contains("Piso "+piso)){
+            } else {
+                if (misMarcadores.elementAt(i).getTitle().contains("Piso " + piso)) {
                     miMapa.addMarker(misMarcadores.elementAt(i));
                 }
             }
         }
 
         //Agrego los overlays
-        if(misOverlays.size() > piso) {
+        if (misOverlays.size() > piso) {
             for (int i = 0; i < misOverlays.elementAt(piso).size(); i++) {
                 miMapa.addGroundOverlay(misOverlays.elementAt(piso).elementAt(i));
             }
@@ -468,34 +483,28 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
     }
 
     //Funcion para saber si un punto está dentro de ciertos limites
-    public boolean dentroDeLimites(LatLng posicion, LatLngBounds bounds){
+    public boolean dentroDeLimites(LatLng posicion, LatLngBounds bounds) {
         LatLng limiteInfIzquierdo = bounds.southwest;
         LatLng limiteSupDerecho = bounds.northeast;
         boolean esta = true;
-        if (posicion.latitude > limiteSupDerecho.latitude || posicion.latitude < limiteInfIzquierdo.latitude || posicion.longitude > limiteSupDerecho.longitude || posicion.longitude < limiteInfIzquierdo.longitude){
+        if (posicion.latitude > limiteSupDerecho.latitude || posicion.latitude < limiteInfIzquierdo.latitude || posicion.longitude > limiteSupDerecho.longitude || posicion.longitude < limiteInfIzquierdo.longitude) {
             esta = false;
         }
         return esta;
     }
 
     //hashMap de Posición de nodo - Imagen del nodod
-    public void cargarMapaImagnes(Vector<Punto> puntos){
+    public void cargarMapaImagnes(Vector<Punto> puntos) {
         hashMapImagenes.clear();
-        for(int i=0;i<puntos.size();i++){
-            if(puntos.elementAt(i).getImagen() != null) {
+        for (int i = 0; i < puntos.size(); i++) {
+            if (puntos.elementAt(i).getImagen() != null) {
                 hashMapImagenes.put(new LatLng(puntos.elementAt(i).getLatitud(), puntos.elementAt(i).getLongitud()), puntos.elementAt(i).getImagen());
             }
         }
     }
 
-/*    @Override
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
-
-        FragmentManager fm = getActivity().getSupportFragmentManager();
-        Fragment fragment = (SupportMapFragment) this.getChildFragmentManager().findFragmentById(R.id.map);
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.remove(fragment).commitAllowingStateLoss();
-    }*/
+    }
 }
-
