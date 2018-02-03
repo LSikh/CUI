@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
         //Instancio la base de datos
-        CUdb = new BaseDatos(getApplicationContext(), "DBCUI", null, 2);
+        CUdb = new BaseDatos(getApplicationContext(), "DBCUI", null, 4);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(INITIAL_PERMS, INITIAL_REQUEST);
@@ -154,6 +154,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             if (!(fm.findFragmentById(R.id.fragment_container) instanceof Busqueda)) {
                 qrBoton.hide();
                 menu.clear();
+                mapsFragment.limpiarMapa();
                 Busqueda busqueda = new Busqueda();
                 //fm.popBackStack();
                 fm.beginTransaction().replace(R.id.fragment_container, busqueda).addToBackStack(null).commit();

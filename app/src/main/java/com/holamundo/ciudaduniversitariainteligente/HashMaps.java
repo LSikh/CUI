@@ -22,11 +22,11 @@ public class HashMaps {
         hashMapBounds.put("ed4_0", new LatLngBounds(new LatLng(-31.639896, -60.671735), new LatLng(-31.639576, -60.670991)));
         hashMapBounds.put("ed4_1", new LatLngBounds(new LatLng(-31.639896, -60.671735), new LatLng(-31.639576, -60.670991)));
 
-        hashMapBounds.put("ed5_0", new LatLngBounds(new LatLng(-31.639896, -60.671735), new LatLng(-31.639576, -60.670991)));
-        hashMapBounds.put("ed5_1", new LatLngBounds(new LatLng(-31.639896, -60.671735), new LatLng(-31.639576, -60.670991)));
-        hashMapBounds.put("ed5_2", new LatLngBounds(new LatLng(-31.639896, -60.671735), new LatLng(-31.639576, -60.670991)));
-        hashMapBounds.put("ed5_3", new LatLngBounds(new LatLng(-31.639896, -60.671735), new LatLng(-31.639576, -60.670991)));
-        hashMapBounds.put("ed5_4", new LatLngBounds(new LatLng(-31.639896, -60.671735), new LatLng(-31.639576, -60.670991)));
+        hashMapBounds.put("ed5_0", new LatLngBounds(new LatLng(-31.640346, -60.673949), new LatLng(-31.639980, -60.673311)));
+        hashMapBounds.put("ed5_1", new LatLngBounds(new LatLng(-31.640346, -60.673949), new LatLng(-31.639980, -60.673311)));
+        hashMapBounds.put("ed5_2", new LatLngBounds(new LatLng(-31.640346, -60.673949), new LatLng(-31.639980, -60.673311)));
+        hashMapBounds.put("ed5_3", new LatLngBounds(new LatLng(-31.640346, -60.673949), new LatLng(-31.639980, -60.673311)));
+        hashMapBounds.put("ed5_4", new LatLngBounds(new LatLng(-31.640346, -60.673949), new LatLng(-31.639980, -60.673311)));
 
         //Edificio 1 - FCM
         hashMapBounds.put("ed1_0", new LatLngBounds(new LatLng(-31.639872, -60.670817), new LatLng(-31.639313, -60.670216)));
@@ -40,6 +40,12 @@ public class HashMaps {
         hashMapID.put("ed0_3", R.drawable.ed2_3);
         hashMapID.put("ed4_0", R.drawable.ed4_0);
         hashMapID.put("ed4_1", R.drawable.ed4_1);
+        hashMapID.put("ed5_0", R.drawable.ed5_0);
+        hashMapID.put("ed5_1", R.drawable.ed5_1);
+        hashMapID.put("ed5_2", R.drawable.ed5_2);
+        hashMapID.put("ed5_3", R.drawable.ed5_3);
+        hashMapID.put("ed5_4", R.drawable.ed5_4);
+
 
         //--------------------------------------------------------------------------------------------------------------------//
     }
