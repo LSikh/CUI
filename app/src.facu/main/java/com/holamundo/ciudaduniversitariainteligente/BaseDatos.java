@@ -520,7 +520,7 @@ public class BaseDatos extends SQLiteOpenHelper {
 
         sqLiteDatabase.execSQL(String.format(INSERT_CONEXION_TEMPLATE, 106, 105));
 
-        sqLiteDatabase.execSQL(String.format(INSERT_CONEXION_TEMPLATE, 107, 94));
+        sqLiteDatabase.execSQL(String.format(INSERT_CONEXION_TEMPLATE, 107, 99));
         sqLiteDatabase.execSQL(String.format(INSERT_CONEXION_TEMPLATE, 107, 108));
         sqLiteDatabase.execSQL(String.format(INSERT_CONEXION_TEMPLATE, 107, 109));
         sqLiteDatabase.execSQL(String.format(INSERT_CONEXION_TEMPLATE, 107, 110));
