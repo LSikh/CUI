@@ -97,7 +97,7 @@ public class Busqueda extends Fragment {
                         break;
                     case "Aulas":
 
-                        String[] itemsSB2a = {" --- ", "FICH", "FCBC", "FADU", "FHUC"};
+                        String[] itemsSB2a = {" --- ", "FICH", "FCBC", "FADU", "FHUC", "Cubo"};
                         ArrayAdapter<String> arraySB2a = new ArrayAdapter<String>(getActivity(), R.layout.spinner_layout, itemsSB2a);
                         spinnerBusqueda2.setAdapter(arraySB2a);
 

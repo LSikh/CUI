@@ -57,7 +57,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
     private Marker miPosicionMarcador = null;
     private int cantPisos = 0;
     private int pisoActual = 0;
-    private int cantidad_edificios = 6;           //Cantidad de edificios relevados
+    private int cantidad_edificios = 7;           //Cantidad de edificios relevados
 
     private Vector<PolylineOptions> misPolilineas = new Vector<>(); //Vector de polilineas, cada elemento será una polilinea para un piso
     private Vector<MarkerOptions> marcadoresPiso = new Vector<>(); //Vector de marcadores por piso, dos marcadores por polilinea por piso
@@ -133,7 +133,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Sensor
                 Log.d("Prueba", latLng.latitude + ", " + latLng.longitude);
             }
         });
-        /*GroundOverlayOptions fich = new GroundOverlayOptions().
+      /*GroundOverlayOptions fich = new GroundOverlayOptions().
                 positionFromBounds(new LatLngBounds(new LatLng(-31.640064, -60.673090), new LatLng(-31.639671, -60.671973))).
                 image(BitmapDescriptorFactory.fromResource(R.drawable.ed2_0));
         GroundOverlayOptions fcm = new GroundOverlayOptions().
